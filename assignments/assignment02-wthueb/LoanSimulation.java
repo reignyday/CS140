@@ -14,9 +14,7 @@ public class LoanSimulation {
 			Loanee[i] = new Loanee(100);
 		}
 		
-		// if 110 was a typo (https://i.imgur.com/OfevXIY.png), then the second and third
-		// objects are identical...just a heads-up if you ever use this assignment again
-		int[] amt = { 100, 100, 100 };
+		int[] amt = { 100, 100, 110 };
 		double[] ir = { 0, .1, .1 };
 		int[] yrs = { 10, 1, 1};
 
