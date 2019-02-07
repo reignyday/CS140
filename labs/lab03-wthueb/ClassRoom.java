@@ -33,7 +33,7 @@ public class ClassRoom
 	{
 		for (int i = 0; i < roster.size(); ++i)
 		{
-			for (int j = 1; j < roster.size(); ++j)
+			for (int j = 1; j < roster.size() - i; ++j)
 			{
 				var high = roster.get(j);
 				var low = roster.get(j - 1);
