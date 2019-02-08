@@ -3,7 +3,7 @@ package assignment02;
 /**
  * A class representing a person taking out a loan
  */
-public class Loanee {
+public class Loanee1 {
     private int money;
 	private String name;
 	private LoanPackage loanPackage;
@@ -12,7 +12,7 @@ public class Loanee {
      * Construct a loanee object given an amount of money (in dollars)
      * @param money the amount of dollars the person has
      */
-    public Loanee(int money, String name) {
+    public Loanee1(int money, String name) {
         this.money = money;
 		this.name = name;
     }

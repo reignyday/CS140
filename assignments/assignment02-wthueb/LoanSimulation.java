@@ -11,12 +11,15 @@ public class LoanSimulation {
 
 		for (int i = 0; i < Loanee.length; ++i)
 		{
-			Loanee[i] = new Loanee(100);
+			if (i == Loanee.length - 1)
+				Loanee[i] = new Loanee(110);
+			else
+				Loanee[i] = new Loanee(100);
 		}
-		
-		int[] amt = { 100, 100, 110 };
+
+		int[] amt = { 100, 100, 100 };
 		double[] ir = { 0, .1, .1 };
-		int[] yrs = { 10, 1, 1};
+		int[] yrs = { 10, 1, 1 };
 
 		var canpay = new boolean[3];
 
