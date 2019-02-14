@@ -61,7 +61,7 @@ public class ClassRoomTester1
 		classRoom4.addStudent(gina);
 		classRoom4.addStudent(tyler);
 		classRoom4.addStudent(new Student(12, "Jake"));
-		classRoom4.addStudent(new Student(1, "Gina"));
+		classRoom4.addStudent(new Student(13, "Jim"));
 		classRoom4.addStudent(new Student(11, "Kevin"));
 
 		System.out.println("classRoom1:");

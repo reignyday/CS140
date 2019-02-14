@@ -75,6 +75,7 @@ public class ClassRoom
 	public List<Student> alsoRegisteredIn(ClassRoom... others)
 	{
 		// shallow copy, but it doesn't matter because we aren't altering the Student objects
+		// same as ArrayList.clone()
 		List<Student> list = new ArrayList<>(this.roster);
 
 		if (others == null || others.length == 0)
