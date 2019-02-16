@@ -27,10 +27,8 @@ public class ClassRoomTester2
 
         try (var input = new Scanner(new File(fileName)))
         {
-            cr = new ClassRoom();
+            cr = new ClassRoom(input.nextLine().trim());
 
-            cr.setClassName(input.nextLine().trim());
-            
             while (input.hasNext())
             {
                 int i = input.nextInt();

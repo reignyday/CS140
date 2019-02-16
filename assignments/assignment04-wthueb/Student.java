@@ -16,6 +16,21 @@ public class Student implements Comparable<Student>
         return this.id - stu.id;
     }
 
+    @Override
+    public int hashCode()
+    {
+        return this.id;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof Student)
+            return this.id == ((Student)obj).id;
+
+        return false;
+    }
+
 	//returns id of the student
 	public int getId(){
 		return this.id;

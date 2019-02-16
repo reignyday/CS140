@@ -12,6 +12,11 @@ public class ClassRoom
 
     private String className;
 
+    public ClassRoom(String className)
+    {
+        this.className = className;
+    }
+
 	public static List<Student> registeredInOne(ClassRoom... others)
 	{
 		if (others == null || others.length == 0)
@@ -60,11 +65,6 @@ public class ClassRoom
 
 		return false;
 	}
-
-    public void setClassName(String name)
-    {
-        this.className = name;
-    }
 
 	public List<Student> getRoster()
 	{

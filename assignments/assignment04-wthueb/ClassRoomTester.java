@@ -27,10 +27,8 @@ public class ClassRoomTester
 
         try (var input = new Scanner(new File(fileName)))
         {
-            cr = new ClassRoom();
+            cr = new ClassRoom(input.nextLine().trim());
 
-            cr.setClassName(input.nextLine().trim());
-            
             while (input.hasNext())
             {
                 int i = input.nextInt();
@@ -64,9 +62,7 @@ public class ClassRoomTester
 
         for (int i = 0; i < names.length; ++i)
         {
-            ClassRoom cr = new ClassRoom();
-
-            cr.setClassName(names[i]);
+            ClassRoom cr = new ClassRoom(names[i]);
 
             for (int j = 0; j < students.size(); j += 2+i)
                 cr.addStudent(students.get(j));
