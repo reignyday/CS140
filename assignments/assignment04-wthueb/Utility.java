@@ -4,17 +4,20 @@ import java.util.PriorityQueue;
 
 public class Utility
 {
-    private static class ArrayPair implements Comparable<ArrayPair> {
+    private static class ArrayPair implements Comparable<ArrayPair>
+    {
         public int[] array;
         public int index;
      
-        public ArrayPair(int[] array, int index) {
+        public ArrayPair(int[] array, int index)
+        {
             this.array = array;
             this.index = index;
         }
-     
+
         @Override
-        public int compareTo(ArrayPair o) {
+        public int compareTo(ArrayPair o)
+        {
             return this.array[this.index] - o.array[o.index];
         }
     }
@@ -39,16 +42,18 @@ public class Utility
     }
 
     // figured out how to do this efficiently while practicing interview questions
-    // a few months ago. should be O(nk*logn)
+    // a few months ago. should be O(nlogk) -> n being total elements, k being arrays.length
     public static int[] merge(int[]... arrays)
     {
         // min binary heap
+        // smallest element is always going to be at the head 
         var queue = new PriorityQueue<ArrayPair>();
 
         int size = 0;
 
         for (var array : arrays)
         {
+            // pass first element of each array to queue
             queue.add(new ArrayPair(array, 0));
 
             size += array.length;
@@ -60,11 +65,12 @@ public class Utility
 
         while (!queue.isEmpty())
         {
+            // get and remove head, guarenteed to be smallest
             var pair = queue.poll();
 
             ret[i++] = pair.array[pair.index];
             
-            // this handles variable array lengths
+            // pass next smallest element of each array to queue
             if (pair.index < pair.array.length - 1)
                 queue.add(new ArrayPair(pair.array, pair.index + 1));
         }
