@@ -24,6 +24,12 @@ public class Utility
 
     public static int[] concat(int[]... arrays)
     {
+        if (arrays == null)
+            return null;
+
+        if (arrays.length == 0)
+            return new int[0];
+
         int size = 0;
 
         for (var array : arrays)
@@ -45,6 +51,12 @@ public class Utility
     // a few months ago. should be O(nlogk) -> n being total elements, k being arrays.length
     public static int[] merge(int[]... arrays)
     {
+        if (arrays == null)
+            return null;
+
+        if (arrays.length == 0)
+            return new int[0];
+
         // min binary heap
         // smallest element is always going to be at the head 
         var queue = new PriorityQueue<ArrayPair>();
