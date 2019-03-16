@@ -27,12 +27,33 @@ public class Cell {
 	 * @param cells
 	 */
 	public void populateNeighbors(Cell[][] cells) {
+		// 0 1 2
+		// 3   4
+		// 5 6 7
+		
 		int limitHoriz = cells[0].length;
 		int limitVert = cells.length;
+		
 		if (myRow > 0 && myCol > 0) 
 			neighbors[0] = cells[myRow-1][myCol-1];
-// TODO		
-// fill in neighbors[1] through neighbors[6]
+
+		if (myRow > 0)
+			neighbors[1] = cells[myRow-1][myCol];
+		
+		if (myRow > 0 && myCol < limitHoriz - 1)
+			neighbors[2] = cells[myRow-1][myCol+1];
+		
+		if (myCol > 0)
+			neighbors[3] = cells[myRow][myCol-1];
+		
+		if (myCol < limitHoriz - 1)
+			neighbors[4] = cells[myRow][myCol+1];
+		
+		if (myRow < limitVert - 1 && myCol > 0)
+			neighbors[5] = cells[myRow+1][myCol-1];
+		
+		if (myRow < limitVert - 1)
+			neighbors[6] = cells[myRow+1][myCol];
 		
 		if (myRow < limitVert - 1 && myCol < limitHoriz - 1)
 			neighbors[7] =cells[myRow+1][myCol+1];
@@ -63,10 +84,18 @@ public class Cell {
 	 * @return true if this Cell will be alive in next generation
 	 */
 	public boolean aliveNextTime() {
-
-// TODO
-// fill in here
+		int count = 0;
 		
-		return alive;
+		for (var n : neighbors)
+			if (n != null && n.isAlive())
+				++count;
+		
+		if (count == 3)
+			return true;
+		
+		if (count != 2)
+			return false;
+		
+		return this.alive;
 	}
 }

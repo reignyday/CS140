@@ -70,10 +70,10 @@ public class Tester1
 		
 		List<Employee> all = new ArrayList<>();
 		
-		for(var c : cs)
+		for (var c : cs)
 			all.addAll(c.listEmployees());
 		
-		for(var sc : scs)
+		for (var sc : scs)
 			all.addAll(sc.listEmployees());
 		
 		System.out.println(all);

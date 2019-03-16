@@ -38,7 +38,7 @@ public class GoLdriver {
 	public GoLdriver() {
 		graph = new JFrame();	
 // TODO
-		graph.setUndecorated(false); // change to true to remove top bar from frame 
+		graph.setUndecorated(true); // change to true to remove top bar from frame 
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		graph.setSize(screenSize);
 
@@ -151,6 +151,7 @@ public class GoLdriver {
 	class MyKeyListener extends KeyAdapter {
 		@Override
 		public void keyPressed(KeyEvent arg0) {
+			System.out.println(arg0);
 			if (Character.toUpperCase(arg0.getKeyChar()) == 'B') {
 				running = false;
 				lifePanel.setGrid(cellGrid.backup());
