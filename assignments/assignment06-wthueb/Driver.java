@@ -8,7 +8,7 @@ public class Driver
 
         var f = new Filter(2, c);
 
-        int p = f.provideNext();
+        int p = 0;
 
         while (p < limit)
         {
