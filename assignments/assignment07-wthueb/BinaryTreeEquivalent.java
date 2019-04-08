@@ -140,7 +140,7 @@ public class BinaryTreeEquivalent <T extends Comparable<T>> {
                     // The else1 part works with a BinaryLink current set to children and
                     // a BinaryLink child set to current.right.
                     var current = this.children;
-                    var child = this.children.right;
+                    var child = current.right;
 
                     // We now walk these 2 pointers down the links till we find the place
                     // to make the insert:
@@ -154,15 +154,18 @@ public class BinaryTreeEquivalent <T extends Comparable<T>> {
                     // The while exits when child is null or temp has to precede child.left.
 
                     // Another if/else, call it if2 and else2
-                    // If2 is when child is null: make a new BinaryLink and set current.right 
-                    // equal to it and set the left of that BinaryLink to temp.
+                    // if2
                     if (child == null)
                     {
+                        // If2 is when child is null: make a new BinaryLink and set current.right 
+                        // equal to it and set the left of that BinaryLink to temp.
                         var bl = new BinaryLink();
 
                         bl.left = temp;
-                        bl.right = current.right;
+
+                        current.right = bl;
                     }
+                    // else2
                     else
                     {
                         // Else2 inserts a new BinaryLink bl between two existing ones bl.left
@@ -251,13 +254,25 @@ public class BinaryTreeEquivalent <T extends Comparable<T>> {
 	 * @param indent amount of indentation
 	 */
 	public void print(Node n, int indent) {
-		//TODO
 		// First print indent copies of "  ", i.e. 2 spaces
+        for (int i = 0; i < indent; ++i)
+            System.out.print("  ");
+
 		// Print "-"
 		// Print n.data followed by a new line
+        System.out.println("-" + n.data);
+
 		// BinaryLink child = n.children;
+        var child = n.children;
+
 		// while child is not null recursively print child.left with (indent + 1)
 		// and change child to child.right
+        while (child != null)
+        {
+            this.print(child.left, indent + 1);
+
+            child = child.right;
+        }
 	}
 	// WE WILL SKIP THE OTHER METHOD THAT THE TEXTBOOK HAS FOR Tree
 
