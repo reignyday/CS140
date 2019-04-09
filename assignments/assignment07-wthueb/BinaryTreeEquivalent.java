@@ -7,35 +7,35 @@ import java.util.Collections;
  * kind of binary tree.
  */
 public class BinaryTreeEquivalent <T extends Comparable<T>> {
-	
-	class BinaryLink {
-		public Node left;
-		public BinaryLink right;
-	}
-	
-	class Node implements Comparable<Node> {
-		// Note we are not going to use that Node is Comparable here;
-		// keeping children in order with be done manually by the code
-		public T data;
-		public BinaryLink children;
+    
+    class BinaryLink {
+        public Node left;
+        public BinaryLink right;
+    }
+    
+    class Node implements Comparable<Node> {
+        // Note we are not going to use that Node is Comparable here;
+        // keeping children in order with be done manually by the code
+        public T data;
+        public BinaryLink children;
 
-		Node(T nodeData) {
-			data = nodeData;
-		}
+        Node(T nodeData) {
+            data = nodeData;
+        }
 
-		/**
-		 * Computes the Nodes of the subtree whose root is this Node.
-		 * It does NOT count the BinaryLinks in this count.
-		 * @return the number of Nodes in the subtree
-		 */
-		public int size() {
-			// instead of for (Node child : children) ...
-			// you need 
-			// BinaryLink child = children;
-			// while(child != null) {
-			//	...
-			//	child = child.right;
-			// }
+        /**
+         * Computes the Nodes of the subtree whose root is this Node.
+         * It does NOT count the BinaryLinks in this count.
+         * @return the number of Nodes in the subtree
+         */
+        public int size() {
+            // instead of for (Node child : children) ...
+            // you need 
+            // BinaryLink child = children;
+            // while(child != null) {
+            //  ...
+            //  child = child.right;
+            // }
             var child = this.children;
 
             int size = 0;
@@ -48,24 +48,24 @@ public class BinaryTreeEquivalent <T extends Comparable<T>> {
             }
 
             return size;
-		}
+        }
 // There is a fancier solution by making an Iterator and the BinaryLink Iterable 
 // but it is good practice to learn how to loop through lists.
 // If you implement Iterable you can use the enhanced for.
 
-		/**
-		 * This find method returns the Node that has "element" as
-		 * its data and null if none is found
-		 * @param element the data we are looking for
-		 * @return the node with element as its data or null if there is none.
-		 */
-		public Node find(T element) {
-			// if element is null return null, if element equals data return
-			// this Node, if children is null return null. Make a BinaryLink child
-			// set to be children. In a while loop that moves child to child.right at the end
-			// of the loop, let n be the recursive call child.left.find(element) and return
-			// n if it not null.
-			// if the while loop ends, return null.
+        /**
+         * This find method returns the Node that has "element" as
+         * its data and null if none is found
+         * @param element the data we are looking for
+         * @return the node with element as its data or null if there is none.
+         */
+        public Node find(T element) {
+            // if element is null return null, if element equals data return
+            // this Node, if children is null return null. Make a BinaryLink child
+            // set to be children. In a while loop that moves child to child.right at the end
+            // of the loop, let n be the recursive call child.left.find(element) and return
+            // n if it not null.
+            // if the while loop ends, return null.
             
             if (element == null)
                 return null;
@@ -89,27 +89,27 @@ public class BinaryTreeEquivalent <T extends Comparable<T>> {
             }
 
             return null;
-		}
+        }
 
-		/**
-		 * Add element as the data of Node in the children of this node.
-		 * @param element the element to be inserted as a child of this Node
-		 * @return true if the element is inserted, otherwise false.
-		 */
-		public boolean addChild(T element) {
-			// the hardest part is remembering which Node you came from
-			// when you reach the end of the list (null), which is the place to make
-			// the insert.
+        /**
+         * Add element as the data of Node in the children of this node.
+         * @param element the element to be inserted as a child of this Node
+         * @return true if the element is inserted, otherwise false.
+         */
+        public boolean addChild(T element) {
+            // the hardest part is remembering which Node you came from
+            // when you reach the end of the list (null), which is the place to make
+            // the insert.
 
-			// if element is null or find(element) is not null return false;
+            // if element is null or find(element) is not null return false;
             if (element == null || this.find(element) != null)
                 return false;
 
-			// Make a new Node(element) and call it temp.
+            // Make a new Node(element) and call it temp.
             var temp = new Node(element);
 
-			// if children is null make a new BinaryLink with left equal to temp and
-			// change children to this BinaryLink.
+            // if children is null make a new BinaryLink with left equal to temp and
+            // change children to this BinaryLink.
             if (children == null)
             {
                 var bl = new BinaryLink();
@@ -118,8 +118,8 @@ public class BinaryTreeEquivalent <T extends Comparable<T>> {
 
                 this.children = bl;
             }
-			// else there is a nested if/else: call it if1 and else1
-			// The if1 part checks if element.compareTo(children.left.data) <= 0
+            // else there is a nested if/else: call it if1 and else1
+            // The if1 part checks if element.compareTo(children.left.data) <= 0
             else
             {
                 // if1
@@ -170,7 +170,7 @@ public class BinaryTreeEquivalent <T extends Comparable<T>> {
                     {
                         // Else2 inserts a new BinaryLink bl between two existing ones bl.left
                         // is temp bl.right is child and current.right is changed to bl (the
-                        // correct order of the last two pointer changes is vital).			
+                        // correct order of the last two pointer changes is vital).         
                         var bl = new BinaryLink();
 
                         bl.left = temp;
@@ -181,25 +181,25 @@ public class BinaryTreeEquivalent <T extends Comparable<T>> {
                 }
             }
 
-			// At the very end of the method return true.
+            // At the very end of the method return true.
             return true;
-		}
+        }
 
-		@Override
-		public int compareTo(BinaryTreeEquivalent<T>.Node o) {
-			if(o == null) return 1;
-			return data.compareTo(o.data);
-		}
-	}
+        @Override
+        public int compareTo(BinaryTreeEquivalent<T>.Node o) {
+            if(o == null) return 1;
+            return data.compareTo(o.data);
+        }
+    }
 
-	private Node root;
+    private Node root;
 
-	public Node find(T element) {
-		return root.find(element);
-	}
-	
-	public boolean insertAsAChild(T element, T rootData) {
-		// see the method above in Tree
+    public Node find(T element) {
+        return root.find(element);
+    }
+    
+    public boolean insertAsAChild(T element, T rootData) {
+        // see the method above in Tree
         
         if (element == null || rootData == null)
             return false;
@@ -213,68 +213,68 @@ public class BinaryTreeEquivalent <T extends Comparable<T>> {
             return false;
 
         return n.addChild(element);
-	}
-	
-	/**
-	 * Constructs an empty tree.
-	 */
-	public BinaryTreeEquivalent() { 
-		root = null; 
-	} 
+    }
+    
+    /**
+     * Constructs an empty tree.
+     */
+    public BinaryTreeEquivalent() { 
+        root = null; 
+    } 
 
-	/**
+    /**
       Constructs a tree with one node and no children.
       @param rootData the data for the root
-	 */
-	public BinaryTreeEquivalent(T rootData) {
-		root = new Node(rootData);
-	}
+     */
+    public BinaryTreeEquivalent(T rootData) {
+        root = new Node(rootData);
+    }
 
-	/**
-	 * Checks whether this tree is empty.
-	 * @return true if this tree is empty
-	 */
-	public boolean isEmpty() { 
-		return root == null; 
-	}
+    /**
+     * Checks whether this tree is empty.
+     * @return true if this tree is empty
+     */
+    public boolean isEmpty() { 
+        return root == null; 
+    }
 
-	/**
+    /**
       Gets the data at the root of this tree.
       @return the root data
-	 */
-	public T data() {
-		return root.data; 
-	}
-	public void print() {
-		print(root, 0);
-	}
-	/**
-	 * Helper method to print the Tree elements with indentation 
-	 * @param n Node that is currently being printed
-	 * @param indent amount of indentation
-	 */
-	public void print(Node n, int indent) {
-		// First print indent copies of "  ", i.e. 2 spaces
+     */
+    public T data() {
+        return root.data; 
+    }
+    public void print() {
+        print(root, 0);
+    }
+    /**
+     * Helper method to print the Tree elements with indentation 
+     * @param n Node that is currently being printed
+     * @param indent amount of indentation
+     */
+    public void print(Node n, int indent) {
+        // First print indent copies of "  ", i.e. 2 spaces
         for (int i = 0; i < indent; ++i)
             System.out.print("  ");
 
-		// Print "-"
-		// Print n.data followed by a new line
+        // Print "-"
+        // Print n.data followed by a new line
         System.out.println("-" + n.data);
 
-		// BinaryLink child = n.children;
+        // BinaryLink child = n.children;
         var child = n.children;
 
-		// while child is not null recursively print child.left with (indent + 1)
-		// and change child to child.right
+        // while child is not null recursively print child.left with (indent + 1)
+        // and change child to child.right
         while (child != null)
         {
             this.print(child.left, indent + 1);
 
             child = child.right;
         }
-	}
-	// WE WILL SKIP THE OTHER METHOD THAT THE TEXTBOOK HAS FOR Tree
+    }
+    // WE WILL SKIP THE OTHER METHOD THAT THE TEXTBOOK HAS FOR Tree
 
     public static void main(String[] args) {
         var dirTree = new Tree<String>("C:\\");
