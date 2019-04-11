@@ -35,11 +35,11 @@ public class Bonus
 
     public static void printYoungestEmployee()
     {
-        System.out.println("youngest: " + Bonus.departments.stream()
+        Bonus.departments.stream()
                 .peek(d -> System.out.println(d.getDepartmentName() + ": " + d))
                 .flatMap(d -> d.getEmployees().stream())
-                .reduce(null, (a,b) -> a == null ? b : b.getAge() < a.getAge() ? b : a)
-        );
+                .reduce((a,b) -> b.getAge() < a.getAge() ? b : a)
+                .ifPresent(e -> System.out.println("youngest: " + e));
     }
 
     public static void main(String[] args)
