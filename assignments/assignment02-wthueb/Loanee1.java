@@ -14,7 +14,7 @@ public class Loanee1 {
      */
     public Loanee1(int money, String name) {
         this.money = money;
-    	this.name = name;
+        this.name = name;
     }
 
     /**
@@ -28,22 +28,22 @@ public class Loanee1 {
 
     public String getName()
     {
-    	return this.name;
+        return this.name;
     }
 
     public void addMoney(int amount)
     {
-    	this.money += amount;
+        this.money += amount;
     }
 
     public void setLoanPackage(int amount, double ir, int years)
     {
-    	this.loanPackage = new LoanPackage(amount, ir, years);
+        this.loanPackage = new LoanPackage(amount, ir, years);
     }
 
     public double getLoanAmount()
     {
-    	return this.loanPackage.getAmountDue();
+        return this.loanPackage.getAmountDue();
     }
 
     /**

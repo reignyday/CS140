@@ -7,27 +7,27 @@ import java.util.Arrays;
  */
 public class LoanSimulation {
     public static void main(String[] args) {
-    	var Loanee = new Loanee[3];
+        var Loanee = new Loanee[3];
 
-    	for (int i = 0; i < Loanee.length; ++i)
-    	{
-    		if (i == Loanee.length - 1)
-    			Loanee[i] = new Loanee(110);
-    		else
-    			Loanee[i] = new Loanee(100);
-    	}
+        for (int i = 0; i < Loanee.length; ++i)
+        {
+            if (i == Loanee.length - 1)
+                Loanee[i] = new Loanee(110);
+            else
+                Loanee[i] = new Loanee(100);
+        }
 
-    	int[] amt = { 100, 100, 100 };
-    	double[] ir = { 0, .1, .1 };
-    	int[] yrs = { 10, 1, 1 };
+        int[] amt = { 100, 100, 100 };
+        double[] ir = { 0, .1, .1 };
+        int[] yrs = { 10, 1, 1 };
 
-    	var canpay = new boolean[3];
+        var canpay = new boolean[3];
 
-    	for (int i = 0; i < Loanee.length; ++i)
-    	{
-    		canpay[i] = Loanee[i].canPayLoan(amt[i], ir[i], yrs[i]);
-    	}
+        for (int i = 0; i < Loanee.length; ++i)
+        {
+            canpay[i] = Loanee[i].canPayLoan(amt[i], ir[i], yrs[i]);
+        }
 
-    	System.out.println(Arrays.toString(canpay));
+        System.out.println(Arrays.toString(canpay));
     }
 }

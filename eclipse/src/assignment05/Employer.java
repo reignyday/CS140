@@ -11,17 +11,17 @@ public interface Employer extends Comparable<Employer>
     @Override
     default int compareTo(Employer o)
     {
-    	return this.toString().compareToIgnoreCase(o.toString());
+        return this.toString().compareToIgnoreCase(o.toString());
     }
     
     default List<Employee> listEmployeesSorted()
     {
-    	List<Employee> temp = new ArrayList<>();
-    	
-    	temp.addAll(this.listEmployees());
-    	
-    	Collections.sort(temp);
-    	
-    	return temp;
+        List<Employee> temp = new ArrayList<>();
+        
+        temp.addAll(this.listEmployees());
+        
+        Collections.sort(temp);
+        
+        return temp;
     }
 }

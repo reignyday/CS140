@@ -11,39 +11,39 @@ public class SmallCompany implements Employer
     
     public SmallCompany(String companyName)
     {
-    	this.companyName = companyName;
+        this.companyName = companyName;
     }
     
     @Override
     public String toString()
     {
-    	return "Company: " + this.companyName;
+        return "Company: " + this.companyName;
     }
     
     @Override
     public List<Employee> listEmployees()
     {
-    	return this.employees;
+        return this.employees;
     }
     
     @Override
     public List<Employee> listEmployeesSorted()
     {
-    	return this.employees;
+        return this.employees;
     }
     
     public void addEmp(Employee e)
     {
-    	e.setEmployer(this);
-    	
-    	int k = Collections.binarySearch(this.employees, e);
-    	
-    	if (k < 0)
-    		this.employees.add(-k - 1, e);
+        e.setEmployer(this);
+        
+        int k = Collections.binarySearch(this.employees, e);
+        
+        if (k < 0)
+            this.employees.add(-k - 1, e);
     }
     
     public void addPerson(Person p, double salary)
     {
-    	this.addEmp(new Employee(p, salary));
+        this.addEmp(new Employee(p, salary));
     }
 }

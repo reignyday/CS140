@@ -7,22 +7,22 @@ public class Person
 
     public Person(String first, String last)
     {
-    	this.firstName = first;
-    	this.lastName = last;
+        this.firstName = first;
+        this.lastName = last;
     }
 
     public String getFirstName()
     {
-    	return this.firstName;
+        return this.firstName;
     }
 
     public String getLastName()
     {
-    	return this.lastName;
+        return this.lastName;
     }
 
     public String toString()
     {
-    	return this.firstName + " " + this.lastName;
+        return this.firstName + " " + this.lastName;
     }
 }

@@ -7,17 +7,17 @@ public class Book
 
     public Book(String title, int numPages)
     {
-    	this.title = title;
-    	this.numPages = numPages;
+        this.title = title;
+        this.numPages = numPages;
     }
 
     public String getTitle()
     {
-    	return this.title;
+        return this.title;
     }
 
     public int getNumPages()
     {
-    	return this.numPages;
+        return this.numPages;
     }
 }

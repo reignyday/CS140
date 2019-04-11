@@ -29,17 +29,17 @@ public class LifePanel extends JPanel {
      * @param scrHeight the height of the screen in pixels
      */
     public LifePanel(GoLdriver callBack,
-    		double blockWidth2, double blockHeight2, 
-    		int nBlocksHoriz, int nBlocksVert, 
-    		int scrWidth, int scrHeight) {
-    	blockWidth = blockWidth2;
-    	blockHeight = blockHeight2;
-    	screenWidth = scrWidth;
-    	screenHeight = scrHeight;
-    	numBlocksHoriz = nBlocksHoriz;
-    	numBlocksVert = nBlocksVert;		
-    	blackSquares = new boolean[numBlocksVert][numBlocksHoriz];
-    	addMouseListener(callBack.new MyMouseListener());
+            double blockWidth2, double blockHeight2, 
+            int nBlocksHoriz, int nBlocksVert, 
+            int scrWidth, int scrHeight) {
+        blockWidth = blockWidth2;
+        blockHeight = blockHeight2;
+        screenWidth = scrWidth;
+        screenHeight = scrHeight;
+        numBlocksHoriz = nBlocksHoriz;
+        numBlocksVert = nBlocksVert;        
+        blackSquares = new boolean[numBlocksVert][numBlocksHoriz];
+        addMouseListener(callBack.new MyMouseListener());
     }
 
     /**
@@ -49,18 +49,18 @@ public class LifePanel extends JPanel {
      */
     @Override
     public void paintComponent(Graphics g) {
-    	Graphics2D g2 = (Graphics2D)g;
-    	for (int i = 0; i < blackSquares.length; i++)
-    		for (int j = 0; j < blackSquares[i].length; j++)
-    			if(blackSquares[i][j])
-    				g2.fill(new Rectangle2D.Double(j*blockWidth, i*blockHeight, 
-    						blockWidth, blockHeight));
-    	g2.setColor(Color.BLACK);
-    	for (int i = 1; i < numBlocksVert; i++)
-    		g2.draw(new Line2D.Double(0,i*blockHeight, screenWidth, i*blockHeight));
-    	
-    	for (int j = 1; j < numBlocksHoriz; j++)
-    		g2.draw(new Line2D.Double(j*blockWidth, 0, j*blockWidth, screenHeight));
+        Graphics2D g2 = (Graphics2D)g;
+        for (int i = 0; i < blackSquares.length; i++)
+            for (int j = 0; j < blackSquares[i].length; j++)
+                if(blackSquares[i][j])
+                    g2.fill(new Rectangle2D.Double(j*blockWidth, i*blockHeight, 
+                            blockWidth, blockHeight));
+        g2.setColor(Color.BLACK);
+        for (int i = 1; i < numBlocksVert; i++)
+            g2.draw(new Line2D.Double(0,i*blockHeight, screenWidth, i*blockHeight));
+        
+        for (int j = 1; j < numBlocksHoriz; j++)
+            g2.draw(new Line2D.Double(j*blockWidth, 0, j*blockWidth, screenHeight));
     }
     
     /**
@@ -69,6 +69,6 @@ public class LifePanel extends JPanel {
      * @param aGrid
      */
     public void setGrid(boolean[][] aGrid) {
-    	blackSquares = aGrid;
-    }	
+        blackSquares = aGrid;
+    }    
 }

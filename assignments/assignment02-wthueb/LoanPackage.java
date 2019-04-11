@@ -11,21 +11,21 @@ public class LoanPackage {
 
     public static void exchangeFields(LoanPackage pkg1, LoanPackage pkg2)
     {
-    	pkg1.amount = pkg1.amount + pkg2.amount;
-    	pkg2.amount = pkg1.amount - pkg2.amount;
-    	pkg1.amount = pkg1.amount - pkg2.amount;
+        pkg1.amount = pkg1.amount + pkg2.amount;
+        pkg2.amount = pkg1.amount - pkg2.amount;
+        pkg1.amount = pkg1.amount - pkg2.amount;
 
-    	pkg1.interestRate = pkg1.interestRate + pkg2.interestRate;
-    	pkg2.interestRate = pkg1.interestRate - pkg2.interestRate;
-    	pkg1.interestRate = pkg1.interestRate - pkg2.interestRate;
+        pkg1.interestRate = pkg1.interestRate + pkg2.interestRate;
+        pkg2.interestRate = pkg1.interestRate - pkg2.interestRate;
+        pkg1.interestRate = pkg1.interestRate - pkg2.interestRate;
 
-    	pkg1.numYears = pkg1.numYears + pkg2.numYears;
-    	pkg2.numYears = pkg1.numYears - pkg2.numYears;
-    	pkg1.numYears = pkg1.numYears - pkg2.numYears;
+        pkg1.numYears = pkg1.numYears + pkg2.numYears;
+        pkg2.numYears = pkg1.numYears - pkg2.numYears;
+        pkg1.numYears = pkg1.numYears - pkg2.numYears;
 
-    	pkg1.finalAmountDue = pkg1.finalAmountDue + pkg2.finalAmountDue;
-    	pkg2.finalAmountDue = pkg1.finalAmountDue - pkg2.finalAmountDue;
-    	pkg1.finalAmountDue = pkg1.finalAmountDue - pkg2.finalAmountDue;
+        pkg1.finalAmountDue = pkg1.finalAmountDue + pkg2.finalAmountDue;
+        pkg2.finalAmountDue = pkg1.finalAmountDue - pkg2.finalAmountDue;
+        pkg1.finalAmountDue = pkg1.finalAmountDue - pkg2.finalAmountDue;
     }
 
     /**
@@ -38,18 +38,18 @@ public class LoanPackage {
     public LoanPackage(double amt, double ir, int years) {
         this.amount = amt;
         this.interestRate = ir;
-    	this.numYears = years;
+        this.numYears = years;
 
         this.finalAmountDue = this.amount;
 
         for (int i = 0; i < years; i++) {
-    		this.finalAmountDue += this.finalAmountDue * interestRate;
+            this.finalAmountDue += this.finalAmountDue * interestRate;
         }
     }
 
     public int compareTo(LoanPackage pkg)
     {
-    	return Double.compare(this.finalAmountDue, pkg.finalAmountDue);
+        return Double.compare(this.finalAmountDue, pkg.finalAmountDue);
     }
 
     /**
@@ -72,7 +72,7 @@ public class LoanPackage {
 
     public int getNumYears()
     {
-    	return this.numYears;
+        return this.numYears;
     }
 
     /**
@@ -83,6 +83,6 @@ public class LoanPackage {
      * @return the amount due on the loan after `years` years have passed
      */
     public double getAmountDue() {
-    	return this.finalAmountDue;
+        return this.finalAmountDue;
     }
 }

@@ -7,8 +7,8 @@ public class Student implements Comparable<Student>
 
     //Value constructor used to create a Student object
     public Student(int i, String n){
-    	this.id = i;
-    	this.name = n;
+        this.id = i;
+        this.name = n;
     }
 
     public int compareTo(Student stu)
@@ -33,16 +33,16 @@ public class Student implements Comparable<Student>
 
     //returns id of the student
     public int getId(){
-    	return this.id;
+        return this.id;
     }
 
     //returns name of the student
     public String getName(){
-    	return this.name;
+        return this.name;
     }
 
     //printing a Student object, print's their name
     public String toString(){
-    	return this.id + " " + this.name;
+        return this.id + " " + this.name;
     }
 }

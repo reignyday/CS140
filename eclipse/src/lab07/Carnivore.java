@@ -9,24 +9,24 @@ public abstract class Carnivore extends Animal
     
     public Carnivore(String prey, int predLevel)
     {
-    	this.prey = prey;
-    	this.predatoryLevel = predLevel;
+        this.prey = prey;
+        this.predatoryLevel = predLevel;
     }
     
     @Override
     public String toString()
     {
-    	return "A carnivore only eats meat. It can additionally perform the " +
-    		"action prowl, and has prey it eats";
+        return "A carnivore only eats meat. It can additionally perform the " +
+            "action prowl, and has prey it eats";
     }
     
     public String getPrey()
     {
-    	return this.prey;
+        return this.prey;
     }
     
     public int getPredatoryLevel()
     {
-    	return this.predatoryLevel;
+        return this.predatoryLevel;
     }
 }
