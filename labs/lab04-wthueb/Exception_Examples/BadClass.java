@@ -8,6 +8,6 @@ class BadClass {
     }
 
     public static void main(String[] args){
-    	BadClass breaks = new BadClass();
+        BadClass breaks = new BadClass();
     }
 }

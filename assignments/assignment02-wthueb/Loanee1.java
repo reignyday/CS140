@@ -5,8 +5,8 @@ package assignment02;
  */
 public class Loanee1 {
     private int money;
-	private String name;
-	private LoanPackage loanPackage;
+    private String name;
+    private LoanPackage loanPackage;
 
     /**
      * Construct a loanee object given an amount of money (in dollars)
@@ -14,7 +14,7 @@ public class Loanee1 {
      */
     public Loanee1(int money, String name) {
         this.money = money;
-		this.name = name;
+    	this.name = name;
     }
 
     /**
@@ -26,25 +26,25 @@ public class Loanee1 {
         return this.money;
     }
 
-	public String getName()
-	{
-		return this.name;
-	}
+    public String getName()
+    {
+    	return this.name;
+    }
 
-	public void addMoney(int amount)
-	{
-		this.money += amount;
-	}
+    public void addMoney(int amount)
+    {
+    	this.money += amount;
+    }
 
-	public void setLoanPackage(int amount, double ir, int years)
-	{
-		this.loanPackage = new LoanPackage(amount, ir, years);
-	}
+    public void setLoanPackage(int amount, double ir, int years)
+    {
+    	this.loanPackage = new LoanPackage(amount, ir, years);
+    }
 
-	public double getLoanAmount()
-	{
-		return this.loanPackage.getAmountDue();
-	}
+    public double getLoanAmount()
+    {
+    	return this.loanPackage.getAmountDue();
+    }
 
     /**
      * Determines if this person could pay back a potential loan
@@ -67,10 +67,10 @@ public class Loanee1 {
          Check if the person has enough money to pay back the loan
         */
 
-	Loan loan = new Loan(amt, ir);
+    Loan loan = new Loan(amt, ir);
 
-	double cost = loan.getAmountDue(years);
+    double cost = loan.getAmountDue(years);
 
-	return cost <= this.getMoney();
+    return cost <= this.getMoney();
     }
 }

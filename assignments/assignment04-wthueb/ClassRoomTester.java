@@ -45,8 +45,8 @@ public class ClassRoomTester
         return cr;
     }
 
-	public static void main(String[] args)
-	{
+    public static void main(String[] args)
+    {
         var students = new ArrayList<Student>();
 
         for (int i = 0; i < 100; ++i)
@@ -69,5 +69,5 @@ public class ClassRoomTester
 
             saveClassRoom(cr);
         }
-	}
+    }
 }

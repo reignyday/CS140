@@ -129,7 +129,7 @@ public class BinarySearchTree<T> {
 
     private void prettyPrint(int indentLevel) {
         // print `indentLevel` amount of spaces before printing data on its own line
-	//HINT: you will want to do an in order traversal here. (see the Traversal section in the explanation of Binary Trees above)
+    //HINT: you will want to do an in order traversal here. (see the Traversal section in the explanation of Binary Trees above)
         // you may use a for loop to print `indentLevel` amount of spaces
         // each time you recurse, you add to indentLevel
         

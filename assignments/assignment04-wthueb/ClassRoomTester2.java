@@ -45,8 +45,8 @@ public class ClassRoomTester2
         return cr;
     }
 
-	public static void main(String[] args)
-	{
+    public static void main(String[] args)
+    {
         var classRoom1 = readClassRoom("History.text");
         var classRoom2 = readClassRoom("Computer Science.text");
         var classRoom3 = readClassRoom("Math.text");
@@ -58,5 +58,5 @@ public class ClassRoomTester2
 
         System.out.println("----- ClassRoom.registeredInOne(classRoom2, classRoom4, classRoom5) -----");
         System.out.println(ClassRoom.registeredInOne(classRoom2, classRoom4, classRoom5));
-	}
+    }
 }

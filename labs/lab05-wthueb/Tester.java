@@ -7,8 +7,8 @@ import java.util.List;
 public class Tester {
 
     public static void main(String[] args) {
-    	testDivision();
-    	testFunWithStrings();
+        testDivision();
+        testFunWithStrings();
         testZipper();
     }
 
@@ -22,9 +22,9 @@ public class Tester {
     }
 
     public static void testFunWithStrings() {
-    	List<String> list1 = new ArrayList<String>(Arrays.asList("to", "cellphone", "truck", "fire"));
-    	List<String> list2 = new ArrayList<String>(Arrays.asList("delicious", "copper", "blue", "red"));
-    	FunWithStrings.swapMaxes(list1, list2);
+        List<String> list1 = new ArrayList<String>(Arrays.asList("to", "cellphone", "truck", "fire"));
+        List<String> list2 = new ArrayList<String>(Arrays.asList("delicious", "copper", "blue", "red"));
+        FunWithStrings.swapMaxes(list1, list2);
         System.out.println("Expecting [to, delicious, truck, fire] [cellphone, copper, blue, red]");
         System.out.println("Received  " + list1 + " " + list2 + "\n");
     }

@@ -44,10 +44,10 @@ public class Loanee {
          Check if the person has enough money to pay back the loan
         */
 
-	Loan loan = new Loan(amt, ir);
+    Loan loan = new Loan(amt, ir);
 
-	double cost = loan.getAmountDue(years);
+    double cost = loan.getAmountDue(years);
 
-	return cost <= this.getMoney();
+    return cost <= this.getMoney();
     }
 }

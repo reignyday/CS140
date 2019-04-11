@@ -2,33 +2,33 @@ package assignment02;
 
 public class Question3
 {
-	private static void printLoanPackage(LoanPackage pkg)
-	{
-		System.out.println("amt: " + pkg.getAmount());
-		System.out.println("ir: " + pkg.getInterestRate());
-		System.out.println("years: " + pkg.getNumYears());
-		System.out.println("due: " + pkg.getAmountDue());
-	}
+    private static void printLoanPackage(LoanPackage pkg)
+    {
+    	System.out.println("amt: " + pkg.getAmount());
+    	System.out.println("ir: " + pkg.getInterestRate());
+    	System.out.println("years: " + pkg.getNumYears());
+    	System.out.println("due: " + pkg.getAmountDue());
+    }
 
-	public static void main(String[] argv)
-	{
-		var pkg1 = new LoanPackage(150, .2, 5);
-		var pkg2 = new LoanPackage(100, .1, 3);
+    public static void main(String[] argv)
+    {
+    	var pkg1 = new LoanPackage(150, .2, 5);
+    	var pkg2 = new LoanPackage(100, .1, 3);
 
-		System.out.println("pkg1:");
-		printLoanPackage(pkg1);
+    	System.out.println("pkg1:");
+    	printLoanPackage(pkg1);
 
-		System.out.println("\npkg2:");
-		printLoanPackage(pkg2);
-	
-		System.out.println("\nswapping fields\n");
-		LoanPackage.exchangeFields(pkg1, pkg2);
+    	System.out.println("\npkg2:");
+    	printLoanPackage(pkg2);
+    
+    	System.out.println("\nswapping fields\n");
+    	LoanPackage.exchangeFields(pkg1, pkg2);
 
-		System.out.println("pkg1:");
-		printLoanPackage(pkg1);
+    	System.out.println("pkg1:");
+    	printLoanPackage(pkg1);
 
-		System.out.println("\npkg2:");
-		printLoanPackage(pkg2);
+    	System.out.println("\npkg2:");
+    	printLoanPackage(pkg2);
 
         var arr = new LoanPackage[5];
         arr[0] = new LoanPackage(100, 2, 3);
@@ -45,7 +45,7 @@ public class Question3
         }
 
         System.out.println("\nfirst largest amount due index: " +
-				LoanUtility.indexOfFirstLargestAmountDue(0, arr));
+    			LoanUtility.indexOfFirstLargestAmountDue(0, arr));
 
         LoanUtility.putInDescendingOrder(arr);
 
@@ -53,5 +53,5 @@ public class Question3
 
         for (int i = 0; i < arr.length; ++i)
             System.out.println(arr[i].getAmountDue());
-	}
+    }
 }

@@ -6,27 +6,27 @@ package assignment02;
 public class LoanPackage {
     private double amount; // amount the loan is for
     private double interestRate; // rate the loan takes on interest
-	private int numYears;
-	private double finalAmountDue;
+    private int numYears;
+    private double finalAmountDue;
 
-	public static void exchangeFields(LoanPackage pkg1, LoanPackage pkg2)
-	{
-		pkg1.amount = pkg1.amount + pkg2.amount;
-		pkg2.amount = pkg1.amount - pkg2.amount;
-		pkg1.amount = pkg1.amount - pkg2.amount;
+    public static void exchangeFields(LoanPackage pkg1, LoanPackage pkg2)
+    {
+    	pkg1.amount = pkg1.amount + pkg2.amount;
+    	pkg2.amount = pkg1.amount - pkg2.amount;
+    	pkg1.amount = pkg1.amount - pkg2.amount;
 
-		pkg1.interestRate = pkg1.interestRate + pkg2.interestRate;
-		pkg2.interestRate = pkg1.interestRate - pkg2.interestRate;
-		pkg1.interestRate = pkg1.interestRate - pkg2.interestRate;
+    	pkg1.interestRate = pkg1.interestRate + pkg2.interestRate;
+    	pkg2.interestRate = pkg1.interestRate - pkg2.interestRate;
+    	pkg1.interestRate = pkg1.interestRate - pkg2.interestRate;
 
-		pkg1.numYears = pkg1.numYears + pkg2.numYears;
-		pkg2.numYears = pkg1.numYears - pkg2.numYears;
-		pkg1.numYears = pkg1.numYears - pkg2.numYears;
+    	pkg1.numYears = pkg1.numYears + pkg2.numYears;
+    	pkg2.numYears = pkg1.numYears - pkg2.numYears;
+    	pkg1.numYears = pkg1.numYears - pkg2.numYears;
 
-		pkg1.finalAmountDue = pkg1.finalAmountDue + pkg2.finalAmountDue;
-		pkg2.finalAmountDue = pkg1.finalAmountDue - pkg2.finalAmountDue;
-		pkg1.finalAmountDue = pkg1.finalAmountDue - pkg2.finalAmountDue;
-	}
+    	pkg1.finalAmountDue = pkg1.finalAmountDue + pkg2.finalAmountDue;
+    	pkg2.finalAmountDue = pkg1.finalAmountDue - pkg2.finalAmountDue;
+    	pkg1.finalAmountDue = pkg1.finalAmountDue - pkg2.finalAmountDue;
+    }
 
     /**
      * Construct a loan object given a loan amount
@@ -38,19 +38,19 @@ public class LoanPackage {
     public LoanPackage(double amt, double ir, int years) {
         this.amount = amt;
         this.interestRate = ir;
-		this.numYears = years;
+    	this.numYears = years;
 
         this.finalAmountDue = this.amount;
 
         for (int i = 0; i < years; i++) {
-			this.finalAmountDue += this.finalAmountDue * interestRate;
+    		this.finalAmountDue += this.finalAmountDue * interestRate;
         }
     }
 
-	public int compareTo(LoanPackage pkg)
-	{
-		return Double.compare(this.finalAmountDue, pkg.finalAmountDue);
-	}
+    public int compareTo(LoanPackage pkg)
+    {
+    	return Double.compare(this.finalAmountDue, pkg.finalAmountDue);
+    }
 
     /**
      * Gets the amount the loan is for
@@ -70,10 +70,10 @@ public class LoanPackage {
         return interestRate;
     }
 
-	public int getNumYears()
-	{
-		return this.numYears;
-	}
+    public int getNumYears()
+    {
+    	return this.numYears;
+    }
 
     /**
      * Return the amount to be paid back on the loan,
@@ -83,6 +83,6 @@ public class LoanPackage {
      * @return the amount due on the loan after `years` years have passed
      */
     public double getAmountDue() {
-		return this.finalAmountDue;
+    	return this.finalAmountDue;
     }
 }
