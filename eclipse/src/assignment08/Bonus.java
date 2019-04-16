@@ -45,9 +45,9 @@ public class Bonus
                 .ifPresent(e -> System.out.println("youngest: " + e));
     }
 
-    public static Map<Employee, Department> listAll()
+    public static Map<Employee, Department> listAll(List<Department> depts)
     {
-        return departments.stream()
+        return depts.stream()
                    .flatMap(d -> d.getEmployees().stream())
                    .collect(Collectors.toMap(Function.identity(), Employee::getDepartment));
     }

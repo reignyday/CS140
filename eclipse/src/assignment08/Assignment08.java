@@ -66,8 +66,8 @@ public class Assignment08
     public static List<List<Long>> longFactPair(int n)
     {
         return Stream.iterate(List.of(0L, 1L), l -> {
-            var e0 = l.get(0) + 1L;
-            var e1 = l.get(1) * e0;
+            long e0 = l.get(0) + 1L;
+            long e1 = l.get(1) * e0;
 
             return List.of(e0, e1);
         }).limit(n).collect(Collectors.toList());
