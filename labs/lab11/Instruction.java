@@ -2,6 +2,9 @@ package project;
 
 import static java.util.Map.entry;
 
+import java.util.Map;
+import java.util.Set;
+
 class Instruction
 {
     public static final Map<Integer, String> MNEMONICS = Map.ofEntries(
@@ -12,7 +15,7 @@ class Instruction
     );
 
     public static final Map<String, Integer> OPCODES = Map.ofEntries (
-	        entry("NOP", 0), entry("NOT", 1), entry("HALT", 2), entry("JUMP", 3),
+            entry("NOP", 0), entry("NOT", 1), entry("HALT", 2), entry("JUMP", 3),
             entry("JZMP", 4), entry("LOD", 5), entry("STO", 6), entry("AND", 7),
             entry("CMPL", 8), entry("CMPZ", 9), entry("ADD", 10), entry("SUB", 11),
             entry("MUL", 12), entry("DIV", 13)
@@ -55,36 +58,36 @@ class Instruction
             throw new ParityCheckException("This instruction is corrupted.");
     }
 
-	public String getText()
+    public String getText()
     {
-		StringBuilder build = new StringBuilder();
+        StringBuilder build = new StringBuilder();
 
-		build.append(MNEMONICS.get(opcode / 8));
-		build.append("  ");
+        build.append(MNEMONICS.get(opcode / 8));
+        build.append("  ");
 
-		int flags = opcode & 6;
+        int flags = opcode & 6;
 
-		if (flags == 2)
+        if (flags == 2)
             build.append('m');
         else if (flags == 4)
             build.append('n');
-		else if (flags == 6)
+        else if (flags == 6)
             build.append('a');
 
-		build.append(Integer.toString(arg, 16));
+        build.append(Integer.toString(arg, 16));
 
-		return build.toString().toUpperCase();
-	}
+        return build.toString().toUpperCase();
+    }
 
-	public String getBinHex()
+    public String getBinHex()
     {
-		StringBuilder build = new StringBuilder();
+        StringBuilder build = new StringBuilder();
 
-		String s = "00000000" + Integer.toString(opcode, 2);
-		build.append(s.substring(s.length() - 8));
-		build.append("  ");
-		build.append(Integer.toHexString(arg));
+        String s = "00000000" + Integer.toString(opcode, 2);
+        build.append(s.substring(s.length() - 8));
+        build.append("  ");
+        build.append(Integer.toHexString(arg));
 
-		return build.toString().toUpperCase();
-	}
+        return build.toString().toUpperCase();
+    }
 }
