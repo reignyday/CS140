@@ -9,14 +9,14 @@ class Instruction
 {
     public static final Map<Integer, String> MNEMONICS = Map.ofEntries(
             entry(0, "NOP"), entry(1, "NOT"), entry(2, "HALT"), entry(3, "JUMP"),
-            entry(4, "JZMP"), entry(5, "LOD"), entry(6, "STO"), entry(7, "AND"),
+            entry(4, "JMPZ"), entry(5, "LOD"), entry(6, "STO"), entry(7, "AND"),
             entry(8, "CMPL"), entry(9, "CMPZ"), entry(10, "ADD"), entry(11, "SUB"),
             entry(12, "MUL"), entry(13, "DIV")
     );
 
     public static final Map<String, Integer> OPCODES = Map.ofEntries (
             entry("NOP", 0), entry("NOT", 1), entry("HALT", 2), entry("JUMP", 3),
-            entry("JZMP", 4), entry("LOD", 5), entry("STO", 6), entry("AND", 7),
+            entry("JMPZ", 4), entry("LOD", 5), entry("STO", 6), entry("AND", 7),
             entry("CMPL", 8), entry("CMPZ", 9), entry("ADD", 10), entry("SUB", 11),
             entry("MUL", 12), entry("DIV", 13)
 
