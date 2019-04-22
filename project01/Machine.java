@@ -35,10 +35,10 @@ public class Machine
 
             if (flags != 0)
             {
-                var fstr = "(" + Integer.toBinaryString(flags) + ")";
+                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1) + Integer.toBinaryString(flags & 0b01) + ")";
 
                 throw new IllegalInstructionException(
-                        "Illegal flags for this instruction:" + fstr);
+                        "Illegal flags for this instruction: " + fstr);
             }
 
             this.cpu.pc++;
@@ -49,10 +49,10 @@ public class Machine
 
             if (flags != 0)
             {
-                var fstr = "(" + Integer.toBinaryString(flags) + ")";
+                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1) + Integer.toBinaryString(flags & 0b01) + ")";
 
                 throw new IllegalInstructionException(
-                        "Illegal flags for this instruction:" + fstr);
+                        "Illegal flags for this instruction: " + fstr);
             }
 
             //this.cpu.pc++;
@@ -102,10 +102,10 @@ public class Machine
                 this.cpu.accum = this.getData(this.getData(instr.arg));
             else
             {
-                var fstr = "(" + Integer.toBinaryString(flags) + ")";
+                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1) + Integer.toBinaryString(flags & 0b01) + ")";
 
                 throw new IllegalInstructionException(
-                        "Illegal flags for this instruction:" + fstr);
+                        "Illegal flags for this instruction: " + fstr);
             }
 
             this.cpu.pc++;
@@ -120,10 +120,10 @@ public class Machine
                 this.setData(this.getData(instr.arg), this.cpu.accum);
             else
             {
-                var fstr = "(" + Integer.toBinaryString(flags) + ")";
+                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1) + Integer.toBinaryString(flags & 0b01) + ")";
 
                 throw new IllegalInstructionException(
-                        "Illegal flags for this instruction:" + fstr);
+                        "Illegal flags for this instruction: " + fstr);
             }
 
             this.cpu.pc++;
@@ -134,10 +134,10 @@ public class Machine
 
             if (flags != 0)
             {
-                var fstr = "(" + Integer.toBinaryString(flags) + ")";
+                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1) + Integer.toBinaryString(flags & 0b01) + ")";
 
                 throw new IllegalInstructionException(
-                        "Illegal flags for this instruction:" + fstr);
+                        "Illegal flags for this instruction: " + fstr);
             }
 
             this.cpu.accum = this.cpu.accum == 0 ? 1 : 0;
@@ -154,10 +154,10 @@ public class Machine
                 this.cpu.accum = (this.cpu.accum != 0 && instr.arg != 0) ? 1 : 0;
             else
             {
-                var fstr = "(" + Integer.toBinaryString(flags) + ")";
+                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1) + Integer.toBinaryString(flags & 0b01) + ")";
 
                 throw new IllegalInstructionException(
-                        "Illegal flags for this instruction:" + fstr);
+                        "Illegal flags for this instruction: " + fstr);
             }
 
             this.cpu.pc++;
@@ -168,10 +168,10 @@ public class Machine
 
             if (flags != 0)
             {
-                var fstr = "(" + Integer.toBinaryString(flags) + ")";
+                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1) + Integer.toBinaryString(flags & 0b01) + ")";
 
                 throw new IllegalInstructionException(
-                        "Illegal flags for this instruction:" + fstr);
+                        "Illegal flags for this instruction: " + fstr);
             }
 
             this.cpu.accum = this.getData(instr.arg) < 0 ? 1 : 0;
@@ -184,10 +184,10 @@ public class Machine
 
             if (flags != 0)
             {
-                var fstr = "(" + Integer.toBinaryString(flags) + ")";
+                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1) + Integer.toBinaryString(flags & 0b01) + ")";
 
                 throw new IllegalInstructionException(
-                        "Illegal flags for this instruction:" + fstr);
+                        "Illegal flags for this instruction: " + fstr);
             }
 
             this.cpu.accum = this.getData(instr.arg) == 0 ? 1 : 0;
@@ -206,10 +206,10 @@ public class Machine
                 this.cpu.accum += this.getData(this.getData(instr.arg));
             else
             {
-                var fstr = "(" + Integer.toBinaryString(flags) + ")";
+                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1) + Integer.toBinaryString(flags & 0b01) + ")";
 
                 throw new IllegalInstructionException(
-                        "Illegal flags for this instruction:" + fstr);
+                        "Illegal flags for this instruction: " + fstr);
             }
 
             this.cpu.pc++;
@@ -226,10 +226,10 @@ public class Machine
                 this.cpu.accum -= this.getData(this.getData(instr.arg));
             else
             {
-                var fstr = "(" + Integer.toBinaryString(flags) + ")";
+                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1) + Integer.toBinaryString(flags & 0b01) + ")";
 
                 throw new IllegalInstructionException(
-                        "Illegal flags for this instruction:" + fstr);
+                        "Illegal flags for this instruction: " + fstr);
             }
 
             this.cpu.pc++;
@@ -246,10 +246,10 @@ public class Machine
                 this.cpu.accum *= this.getData(this.getData(instr.arg));
             else
             {
-                var fstr = "(" + Integer.toBinaryString(flags) + ")";
+                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1) + Integer.toBinaryString(flags & 0b01) + ")";
 
                 throw new IllegalInstructionException(
-                        "Illegal flags for this instruction:" + fstr);
+                        "Illegal flags for this instruction: " + fstr);
             }
 
             this.cpu.pc++;
@@ -268,14 +268,14 @@ public class Machine
                 divisor = this.getData(this.getData(instr.arg));
             else
             {
-                var fstr = "(" + Integer.toBinaryString(flags) + ")";
+                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1) + Integer.toBinaryString(flags & 0b01) + ")";
 
                 throw new IllegalInstructionException(
-                        "Illegal flags for this instruction:" + fstr);
+                        "Illegal flags for this instruction: " + fstr);
             }
 
             if (divisor == 0)
-                throw new DivideByZeroException("Cannot divide by zero.");
+                throw new DivideByZeroException("Zero Division");
 
             this.cpu.accum /= divisor;
 

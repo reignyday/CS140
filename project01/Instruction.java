@@ -55,7 +55,7 @@ class Instruction
         var num = Instruction.numOnes(instr.opcode);
 
         if (num % 2 == 1)
-            throw new ParityCheckException("This instruction is corrupted.");
+            throw new ParityCheckException("This instruction is corrupted");
     }
 
     public String getText()
