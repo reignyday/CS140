@@ -52,7 +52,7 @@ public class BinarySearchTree<T> {
             return;
         }
 
-        var comp = this.comparator.compare(this.data, element);
+        var comp = this.comparator.compare(element, this.data);
 
         if (comp == 0)
             return;
@@ -61,7 +61,7 @@ public class BinarySearchTree<T> {
         {
             if (this.left == null)
             {
-                this.left = new BinarySearchTree(element, this.comparator);
+                this.left = new BinarySearchTree<T>(element, this.comparator);
                 return;
             }
 
@@ -71,7 +71,7 @@ public class BinarySearchTree<T> {
         {
             if (this.right == null)
             {
-                this.right = new BinarySearchTree(element, this.comparator);
+                this.right = new BinarySearchTree<T>(element, this.comparator);
                 return;
             }
 
@@ -87,18 +87,20 @@ public class BinarySearchTree<T> {
      *         otherwise null if the given element is not in this BST
      */
     public T find(T element) {
-        if (element == null || data == null)
+        if (element == null || this.data == null)
             return null;
 
-        var comp = this.comparator.compare(this.data, element);
+        int comp = this.comparator.compare(element, this.data);
 
         if (comp == 0)
             return this.data;
 
-        if (comp < 0)
+        if (comp < 0 && this.left != null)
             return this.left.find(element);
-        else
+        else if (this.right != null)
             return this.right.find(element);
+
+        return null;
     }
 
     /**
