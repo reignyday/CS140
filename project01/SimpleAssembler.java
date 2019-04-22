@@ -40,7 +40,8 @@ public class SimpleAssembler implements Assembler
             else if (parts[1].charAt(0) == 'A')
                 flags = 6;
 
-            parts[1] = parts[1].substring(1);
+            if (flags != 0)
+                parts[1] = parts[1].substring(1);
 
             int arg = Integer.parseInt(parts[1], 16);
 
@@ -66,8 +67,8 @@ public class SimpleAssembler implements Assembler
 
         try (Stream<String> lines = Files.lines(Paths.get(inputFileName)))
         {
-            lists = lines.filter(line -> line.trim().length() > 0)
-                         .map(line -> line.trim())
+            lists = lines.map(line -> line.trim())
+                         .filter(line -> line.length() > 0)
                          .peek(line -> {
                              if (line.toUpperCase().equals("DATA"))
                                  this.readingCode = false;
@@ -75,11 +76,13 @@ public class SimpleAssembler implements Assembler
                          .collect(Collectors.partitioningBy(line -> this.readingCode));
 
             System.out.println("true list " + lists.get(true));
-            System.out.println("flase list " + lists.get(false));
+            System.out.println("false list " + lists.get(false));
         }
         catch (IOException e)
         {
             e.printStackTrace();
+
+            return -1;
         }
 
         lists.get(false).remove("DATA");
@@ -94,8 +97,8 @@ public class SimpleAssembler implements Assembler
                                         .map(this::makeData)
                                         .collect(Collectors.toList());
 
-        System.out.println(outputCode);
-        System.out.println(outputData);
+        //System.out.println(outputCode);
+        //System.out.println(outputData);
 
         try
         {
@@ -105,7 +108,7 @@ public class SimpleAssembler implements Assembler
             for (Instruction instr : outputCode)
             {
                 out.writeInt(instr.opcode);
-                out.writeint(instr.arg);
+                out.writeInt(instr.arg);
             }
 
             out.writeInt(-1);
@@ -118,10 +121,14 @@ public class SimpleAssembler implements Assembler
 
             out.close();
         }
-        catch (Exception e)
+        catch (IOException e)
         {
             e.printStackTrace();
+
+            return -1;
         }
+
+        return 0;
     }
 
     public static void main(String[] args)
