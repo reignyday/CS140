@@ -235,8 +235,8 @@ public class SimpleAssembler implements Assembler
                 lists.put(this.readingCode, l);
             }
 
-            System.out.println("true list " + lists.get(true));
-            System.out.println("false list " + lists.get(false));
+            //System.out.println("true list " + lists.get(true));
+            //System.out.println("false list " + lists.get(false));
         }
         catch (FileNotFoundException e)
         {
