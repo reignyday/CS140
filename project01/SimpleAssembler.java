@@ -24,33 +24,33 @@ public class SimpleAssembler implements Assembler
 
         if (Assembler.noArgument.contains(parts[0]))
         {
-            int opPart = 8 * Instruction.OPCODES.get(parts[0]);
+            byte opPart = (byte)(Instruction.OPCODES.get(parts[0]) << 3);
 
             opPart += Instruction.numOnes(opPart) % 2;
 
-            instr = new Instruction((byte)opPart, 0);
+            instr = new Instruction(opPart, 0);
         }
         else
         {
-            int flags = 0;
+            byte flags = 0;
 
             if (parts[1].charAt(0) == 'M')
-                flags = 2;
+                flags = 0b01;
             else if (parts[1].charAt(0) == 'N')
-                flags = 4;
+                flags = 0b10;
             else if (parts[1].charAt(0) == 'A')
-                flags = 6;
+                flags = 0b11;
 
             if (flags != 0)
                 parts[1] = parts[1].substring(1);
 
-            int arg = Integer.parseInt(parts[1], 16);
-
-            int opPart = 8*Instruction.OPCODES.get(parts[0]) + flags;
+            byte opPart = (byte)((Instruction.OPCODES.get(parts[0]) << 3) + (flags << 1));
 
             opPart += Instruction.numOnes(opPart) % 2;
 
-            instr = new Instruction((byte)opPart, arg);
+            int arg = Integer.parseInt(parts[1], 16);
+
+            instr = new Instruction(opPart, arg);
         }
 
         return instr;
