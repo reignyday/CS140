@@ -65,13 +65,13 @@ class Instruction
         build.append(MNEMONICS.get(opcode / 8));
         build.append("  ");
 
-        int flags = opcode & 6;
+        byte flags = (byte)((opcode & 0b110) >> 1);
 
-        if (flags == 2)
+        if (flags == 0b01)
             build.append('M');
-        else if (flags == 4)
+        else if (flags == 0b10)
             build.append('N');
-        else if (flags == 6)
+        else if (flags == 0b11)
             build.append('A');
 
         build.append(Integer.toString(arg, 16));
