@@ -160,7 +160,7 @@ public class SimpleAssembler implements Assembler
                     // 5
                     if (Assembler.noArgument.contains(opcode.toUpperCase()))
                     {
-                        if (parts.length != 1)
+                        if (parts.length > 1)
                         {
                             error.append("\nError on line " + (i+1) +
                                     ": this mnemonic cannot take arguments");
@@ -196,7 +196,7 @@ public class SimpleAssembler implements Assembler
                         else
                         {
                             error.append("\nError on line " + (i+1) +
-                                    ": this mnemonic has too many arguments");
+                                    ": this mnemonic requires one argument");
 
                             ret = i + 1;
                         }
@@ -230,7 +230,9 @@ public class SimpleAssembler implements Assembler
                 }
 
                 var l = new ArrayList<String>(lists.get(this.readingCode));
+
                 l.add(line);
+
                 lists.put(this.readingCode, l);
             }
 
