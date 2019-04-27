@@ -4,6 +4,24 @@ import java.util.Set;
 
 interface Assembler
 {
+    class DataPair
+    {
+        protected int address;
+        protected int value;
+
+        public DataPair(int address, int value)
+        {
+            this.address = address;
+            this.value = value;
+        }
+
+        @Override
+        public String toString()
+        {
+            return "DataPair(" + address + ", " + value + ")";
+        }
+    }
+
     Set<String> noArgument = Set.of("HALT", "NOP", "NOT");
 
     /**
