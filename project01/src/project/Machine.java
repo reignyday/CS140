@@ -1,11 +1,11 @@
 package project;
 
-import java.util.function.Consumer;
+import static project.Instruction.OPCODES;
+
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
-import static project.Instruction.*;
+import java.util.function.Consumer;
 
 public class Machine
 {
@@ -20,7 +20,7 @@ public class Machine
     private CPU cpu = new CPU();
     private Memory memory = new Memory();
 
-    private boolean withGUI = false;
+	private boolean withGUI = false;
     private HaltCallback callBack;
 
     public Machine(HaltCallback cb)

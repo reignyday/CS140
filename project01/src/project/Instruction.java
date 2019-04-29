@@ -5,7 +5,7 @@ import static java.util.Map.entry;
 import java.util.Map;
 import java.util.Set;
 
-class Instruction
+public class Instruction
 {
     public static final Map<Integer, String> MNEMONICS = Map.ofEntries(
             entry(0, "NOP"), entry(1, "NOT"), entry(2, "HALT"), entry(3, "JUMP"),
