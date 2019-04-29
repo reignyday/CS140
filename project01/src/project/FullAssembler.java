@@ -39,8 +39,6 @@ public class FullAssembler implements Assembler
 
                 line = line.trim();
 
-                String[] parts = line.split("\\s+");
-
                 // 1
                 if (blank == -1 && line.length() == 0)
                     blank = i;
@@ -81,6 +79,8 @@ public class FullAssembler implements Assembler
                     continue;
                 }
 
+                String[] parts = line.split("\\s+");
+
                 if (this.readingCode)
                 {
                     String opcode = parts[0];
@@ -116,13 +116,10 @@ public class FullAssembler implements Assembler
                         // 6
                         try
                         {
-                            String arg;
+                            String arg = parts[1];
 
-                            if (parts[1].startsWith("M") || parts[1].startsWith("N")
-                                    || parts[1].startsWith("A"))
-                                arg = parts[1].substring(1);
-                            else
-                                arg = parts[1];
+                            if (arg.startsWith("M") || arg.startsWith("N") || arg.startsWith("A"))
+                                arg = arg.substring(1);
 
                             Integer.parseInt(arg, 16);
                         }
@@ -151,12 +148,12 @@ public class FullAssembler implements Assembler
                                     + ": DATA lines must be in the format [addr val]");
 
                             ret = i + 1;
-
-                            continue;
                         }
-
-                        Integer.parseInt(parts[0], 16);
-                        Integer.parseInt(parts[1], 16);
+                        else
+                        {
+                            Integer.parseInt(parts[0], 16);
+                            Integer.parseInt(parts[1], 16);
+                        }
                     }
                     catch (NumberFormatException e)
                     {
