@@ -4,10 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class FullAssembler implements Assembler
 {
@@ -18,11 +15,6 @@ public class FullAssembler implements Assembler
     {
         if (error == null)
             throw new IllegalArgumentException("Coding error: the error buffer is null");
-
-        Map<Boolean, List<String>> lists = new HashMap<>();
-
-        lists.put(true, List.of());
-        lists.put(false, List.of());
 
         int ret = 0;
 
@@ -173,14 +165,7 @@ public class FullAssembler implements Assembler
 
                         ret = i + 1;
                     }
-
-                var l = new ArrayList<>(lists.get(this.readingCode));
-                l.add(line);
-                lists.put(this.readingCode, l);
             }
-
-            //System.out.println("true list " + lists.get(true));
-            //System.out.println("false list " + lists.get(false));
         }
         catch (FileNotFoundException e)
         {
@@ -200,5 +185,4 @@ public class FullAssembler implements Assembler
 
         return ret;
     }
-
 }

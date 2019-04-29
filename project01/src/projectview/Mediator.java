@@ -104,7 +104,7 @@ public class Mediator
             Mediator mediator = new Mediator();
 
             Machine machine = new Machine(
-                    () -> mediator.setCurrentState(States.PROGRAM_HALTED));
+                    () -> /* mediator.setCurrentState(States.PROGRAM_HALTED */ System.exit(0));
 
             mediator.setMachine(machine);
 
