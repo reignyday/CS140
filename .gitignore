@@ -25,3 +25,5 @@ hs_err_pid*
 .*.swp
 
 .DS_Store
+
+/final-git/
