@@ -12,8 +12,8 @@ class Assignment08Test
     @Test
     void testListAll()
     {
-    	Employee jane = new Employee("Jane Deer", 25);
-    	Employee john = new Employee("John Doe", 30);
+        Employee jane = new Employee("Jane Deer", 25);
+        Employee john = new Employee("John Doe", 30);
         Employee jared = new Employee("Jared Miller", 60);
 
         Department hr = new Department("Human Resources");
@@ -27,12 +27,12 @@ class Assignment08Test
         depts.add(hr);
         depts.add(accounting);
         
-    	var comp = new HashMap<Employee, Department>();
-    	
-    	comp.put(jane, hr);
-    	comp.put(john, accounting);
-    	comp.put(jared, accounting);
-    	
-    	assertEquals(comp, Bonus.listAll(depts));
+        var comp = new HashMap<Employee, Department>();
+        
+        comp.put(jane, hr);
+        comp.put(john, accounting);
+        comp.put(jared, accounting);
+        
+        assertEquals(comp, Bonus.listAll(depts));
     }
 }

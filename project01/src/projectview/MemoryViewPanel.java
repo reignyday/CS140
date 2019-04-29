@@ -148,7 +148,7 @@ public class MemoryViewPanel
 
     public static void main(String[] args) throws Exception
     {
-    	Machine machine = new Machine(() -> System.exit(0));
+        Machine machine = new Machine(() -> System.exit(0));
 
         MemoryViewPanel panel = new MemoryViewPanel(machine, 0, 500);
 

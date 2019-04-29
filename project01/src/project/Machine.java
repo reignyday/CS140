@@ -20,7 +20,7 @@ public class Machine
     private CPU cpu = new CPU();
     private Memory memory = new Memory();
 
-	private boolean withGUI = false;
+    private boolean withGUI = false;
     private HaltCallback callBack;
 
     public Machine(HaltCallback cb)
