@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Scanner;
 
 public class FullAssembler implements Assembler
 {
@@ -181,5 +182,21 @@ public class FullAssembler implements Assembler
             return new SimpleAssembler().assemble(inputFileName, outputFileName, error);
 
         return ret;
+    }
+
+    public static void main(String[] args)
+    {
+        StringBuilder error = new StringBuilder();
+
+        System.out.print("Enter the name of the file without extension: ");
+
+        try (Scanner keyboard = new Scanner(System.in))
+        {
+            String filename = keyboard.nextLine();
+
+            int i = new FullAssembler().assemble(filename + ".pasm", filename + ".pexe", error);
+
+            System.out.println("result = " + i);
+        }
     }
 }
