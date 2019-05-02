@@ -6,11 +6,17 @@ import java.awt.Container;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import project.CodeAccessException;
+import project.DivideByZeroException;
+import project.IllegalInstructionException;
 import project.Machine;
 import project.Memory;
+import project.ParityCheckException;
 
 public class Mediator
 {
@@ -23,6 +29,11 @@ public class Mediator
     private MemoryViewPanel memoryViewPanel3;
     private ControlPanel controlPanel;
     private ProcessorViewPanel processorPanel;
+
+    private IOUnit ioUnit;
+    private MenuBarBuilder menuBuilder;
+
+    private States currentState = States.NOTHING_LOADED;
 
     private void notify(String str)
     {
@@ -38,8 +49,8 @@ public class Mediator
     {
         this.tUnit = new TimerUnit(this);
 
-        //this.ioUnit = new IOUnit(this);
-        //this.ioUnit.initialize();
+        this.ioUnit = new IOUnit(this);
+        this.ioUnit.initialize();
 
         this.codeViewPanel = new CodeViewPanel(this.machine);
         this.memoryViewPanel1 = new MemoryViewPanel(this.machine, 0, 160);
@@ -49,16 +60,16 @@ public class Mediator
         this.controlPanel = new ControlPanel(this);
         this.processorPanel = new ProcessorViewPanel(this.machine);
 
-        //this.menuBuilder = new MenuBarBuilder(this);
+        this.menuBuilder = new MenuBarBuilder(this);
 
         this.frame = new JFrame("Simulator");
 
-        //JMenuBar bar = new JMenuBar();
+        JMenuBar bar = new JMenuBar();
 
-        //this.frame.setJMenuBar(bar);
+        this.frame.setJMenuBar(bar);
 
-        //bar.add(menuBuilder.createFileMenu());
-        //bar.add(menuBuilder.createExecuteMenu());
+        bar.add(this.menuBuilder.createFileMenu());
+        bar.add(this.menuBuilder.createExecuteMenu());
 
         Container content = this.frame.getContentPane();
 
@@ -81,55 +92,270 @@ public class Mediator
         this.frame.add(center, BorderLayout.CENTER);
         this.frame.add(this.controlPanel.createControlDisplay(), BorderLayout.PAGE_END);
 
-        // the next line will be commented or deleted later
-        this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        //this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        //this.frame.addWindowListener(WindowListenerFactory.windowClosingFactory(e -> exit()));
+        //this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        this.frame.addWindowListener(WindowListenerFactory.windowClosingFactory(e -> this.exit()));
 
         this.frame.setLocationRelativeTo(null);
 
         this.tUnit.start();
 
-        //this.currentState().enter();
+        this.currentState.enter();
 
         this.frame.setVisible(true);
 
         this.notify("");
     }
 
-    public static void main(String[] args)
+    public void assembleFile()
     {
-        javax.swing.SwingUtilities.invokeLater(() ->
-        {
-            Mediator mediator = new Mediator();
+        this.ioUnit.assembleFile();
+    }
 
-            Machine machine = new Machine(
-                    () -> /* mediator.setCurrentState(States.PROGRAM_HALTED */ System.exit(0));
-
-            mediator.setMachine(machine);
-
-            mediator.createAndShowGUI();
-        });
+    public void loadFile()
+    {
+        this.ioUnit.loadFile();
     }
 
     public void step()
     {
+        if (this.currentState != States.PROGRAM_HALTED
+                && this.currentState != States.NOTHING_LOADED)
+        {
+            try
+            {
+                this.machine.step();
+            }
+            catch (CodeAccessException e)
+            {
+                JOptionPane.showMessageDialog(this.frame,
+                        "Illegal access to code from line " + this.machine.getPC() + "\n"
+                                + "Exception message: " + e.getMessage(),
+                        "Run time error", JOptionPane.OK_OPTION);
+
+                System.out.println("Illegal access to code from line " + this.machine.getPC());
+                System.out.println("Exception message: " + e.getMessage());
+            }
+            catch (ArrayIndexOutOfBoundsException e)
+            {
+                JOptionPane.showMessageDialog(this.frame,
+                        "Array index OOB exception from line " + this.machine.getPC() + "\n"
+                                + "Exception message: " + e.getMessage(),
+                        "Run time error", JOptionPane.OK_OPTION);
+
+                System.out.println("Array index OOB exception from line " + this.machine.getPC());
+                System.out.println("Exception message: " + e.getMessage());
+            }
+            catch (NullPointerException e)
+            {
+                JOptionPane.showMessageDialog(this.frame,
+                        "Null pointer exception from line " + this.machine.getPC() + "\n"
+                                + "Exception message: " + e.getMessage(),
+                        "Run time error", JOptionPane.OK_OPTION);
+
+                System.out.println("Null pointer exception from line " + this.machine.getPC());
+                System.out.println("Exception message: " + e.getMessage());
+            }
+            catch (ParityCheckException e)
+            {
+                JOptionPane.showMessageDialog(this.frame,
+                        "Parity check exception from line " + this.machine.getPC() + "\n"
+                                + "Exception message: " + e.getMessage(),
+                        "Run time error", JOptionPane.OK_OPTION);
+
+                System.out.println("Parity check exception from line " + this.machine.getPC());
+                System.out.println("Exception message: " + e.getMessage());
+            }
+            catch (IllegalInstructionException e)
+            {
+                JOptionPane.showMessageDialog(this.frame,
+                        "Illegal instruction exception from line " + this.machine.getPC() + "\n"
+                                + "Exception message: " + e.getMessage(),
+                        "Compile time error", JOptionPane.OK_OPTION);
+
+                System.out
+                        .println("Illegal instruction exception from line " + this.machine.getPC());
+                System.out.println("Exception message: " + e.getMessage());
+            }
+            catch (IllegalArgumentException e)
+            {
+                JOptionPane.showMessageDialog(this.frame,
+                        "Illegal argument exception from line " + this.machine.getPC() + "\n"
+                                + "Exception message: " + e.getMessage(),
+                        "Compile time error", JOptionPane.OK_OPTION);
+
+                System.out.println("Illegal argument exception from line " + this.machine.getPC());
+                System.out.println("Exception message: " + e.getMessage());
+            }
+            catch (DivideByZeroException e)
+            {
+                JOptionPane.showMessageDialog(this.frame,
+                        "Divide by zero exception from line " + this.machine.getPC() + "\n"
+                                + "Exception message: " + e.getMessage(),
+                        "Compile time error", JOptionPane.OK_OPTION);
+
+                System.out.println("Divide by zero exception from line " + this.machine.getPC());
+                System.out.println("Exception message: " + e.getMessage());
+            }
+
+            this.notify("");
+        }
+    }
+
+    public void execute()
+    {
+        // wouldn't it make more sense to just call this.step in a while loop instead of copying code?
+        while (this.currentState != States.PROGRAM_HALTED
+                && this.currentState != States.NOTHING_LOADED)
+            try
+            {
+                this.machine.step();
+            }
+            catch (CodeAccessException e)
+            {
+                JOptionPane.showMessageDialog(this.frame,
+                        "Illegal access to code from line " + this.machine.getPC() + "\n"
+                                + "Exception message: " + e.getMessage(),
+                        "Run time error", JOptionPane.OK_OPTION);
+
+                System.out.println("Illegal access to code from line " + this.machine.getPC());
+                System.out.println("Exception message: " + e.getMessage());
+            }
+            catch (ArrayIndexOutOfBoundsException e)
+            {
+                JOptionPane.showMessageDialog(this.frame,
+                        "Array index OOB exception from line " + this.machine.getPC() + "\n"
+                                + "Exception message: " + e.getMessage(),
+                        "Run time error", JOptionPane.OK_OPTION);
+
+                System.out.println("Array index OOB exception from line " + this.machine.getPC());
+                System.out.println("Exception message: " + e.getMessage());
+            }
+            catch (NullPointerException e)
+            {
+                JOptionPane.showMessageDialog(this.frame,
+                        "Null pointer exception from line " + this.machine.getPC() + "\n"
+                                + "Exception message: " + e.getMessage(),
+                        "Run time error", JOptionPane.OK_OPTION);
+
+                System.out.println("Null pointer exception from line " + this.machine.getPC());
+                System.out.println("Exception message: " + e.getMessage());
+            }
+            catch (ParityCheckException e)
+            {
+                JOptionPane.showMessageDialog(this.frame,
+                        "Parity check exception from line " + this.machine.getPC() + "\n"
+                                + "Exception message: " + e.getMessage(),
+                        "Run time error", JOptionPane.OK_OPTION);
+
+                System.out.println("Parity check exception from line " + this.machine.getPC());
+                System.out.println("Exception message: " + e.getMessage());
+            }
+            catch (IllegalInstructionException e)
+            {
+                JOptionPane.showMessageDialog(this.frame,
+                        "Illegal instruction exception from line " + this.machine.getPC() + "\n"
+                                + "Exception message: " + e.getMessage(),
+                        "Compile time error", JOptionPane.OK_OPTION);
+
+                System.out
+                        .println("Illegal instruction exception from line " + this.machine.getPC());
+                System.out.println("Exception message: " + e.getMessage());
+            }
+            catch (IllegalArgumentException e)
+            {
+                JOptionPane.showMessageDialog(this.frame,
+                        "Illegal argument exception from line " + this.machine.getPC() + "\n"
+                                + "Exception message: " + e.getMessage(),
+                        "Compile time error", JOptionPane.OK_OPTION);
+
+                System.out.println("Illegal argument exception from line " + this.machine.getPC());
+                System.out.println("Exception message: " + e.getMessage());
+            }
+            catch (DivideByZeroException e)
+            {
+                JOptionPane.showMessageDialog(this.frame,
+                        "Divide by zero exception from line " + this.machine.getPC() + "\n"
+                                + "Exception message: " + e.getMessage(),
+                        "Compile time error", JOptionPane.OK_OPTION);
+
+                System.out.println("Divide by zero exception from line " + this.machine.getPC());
+                System.out.println("Exception message: " + e.getMessage());
+            }
+
+        this.notify("");
     }
 
     public void clear()
     {
+        this.machine.clear();
+
+        this.setCurrentState(States.NOTHING_LOADED);
+
+        this.currentState.enter();
+
+        this.notify("Clear");
+    }
+
+    public void makeReady(String s)
+    {
+        this.tUnit.setAutoStepOn(false);
+
+        this.setCurrentState(States.PROGRAM_LOADED_NOT_AUTO_STEPPING);
+
+        this.currentState.enter();
+
+        this.notify(s);
+    }
+
+    public void setCurrentState(States s)
+    {
+        if (s == States.PROGRAM_HALTED)
+            this.tUnit.setAutoStepOn(false);
+
+        this.currentState = s;
+
+        s.enter();
+
+        this.notify("");
+    }
+
+    public void exit()
+    {
+        int decision = JOptionPane.showConfirmDialog(this.frame, "Do you really wish to exit?",
+                "Confirmation", JOptionPane.YES_NO_OPTION);
+
+        if (decision == JOptionPane.YES_OPTION)
+            System.exit(0);
     }
 
     public void toggleAutoStep()
     {
+        this.tUnit.toggleAutoStep();
+
+        if (this.tUnit.isAutoStepOn())
+            this.setCurrentState(States.AUTO_STEPPING);
+        else
+            this.setCurrentState(States.PROGRAM_LOADED_NOT_AUTO_STEPPING);
     }
 
     public void reload()
     {
+        this.tUnit.setAutoStepOn(false);
+
+        this.clear();
+
+        this.ioUnit.finalLoad_ReloadStep();
     }
 
     public void setPeriod(int value)
     {
+        this.tUnit.setPeriod(value);
+    }
+
+    public States getCurrentState()
+    {
+        return this.currentState;
     }
 
     Machine getMachine()
@@ -145,5 +371,19 @@ public class Mediator
     JFrame getFrame()
     {
         return this.frame;
+    }
+
+    public static void main(String[] args)
+    {
+        javax.swing.SwingUtilities.invokeLater(() ->
+        {
+            Mediator mediator = new Mediator();
+
+            Machine machine = new Machine(() -> mediator.setCurrentState(States.PROGRAM_HALTED));
+
+            mediator.setMachine(machine);
+
+            mediator.createAndShowGUI();
+        });
     }
 }

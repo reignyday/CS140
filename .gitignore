@@ -27,3 +27,5 @@ hs_err_pid*
 .DS_Store
 
 /final-git/
+/update.sh
+/project01/propertyfile.txt

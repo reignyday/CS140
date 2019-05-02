@@ -15,45 +15,49 @@ public class ControlPanel
     private JButton clearButton = new JButton("Clear");
     private JButton runButton = new JButton("Run/Pause");
     private JButton reloadButton = new JButton("Reload");
-    
+
     public ControlPanel(Mediator mediator)
     {
         this.mediator = mediator;
     }
-    
+
     public JComponent createControlDisplay()
     {
         JPanel panel = new JPanel();
-        
+
         panel.setLayout(new GridLayout(1, 0));
-        
+
         this.stepButton.setBackground(Color.WHITE);
         this.stepButton.addActionListener(e -> this.mediator.step());
-        
+
         this.clearButton.setBackground(Color.WHITE);
         this.clearButton.addActionListener(e -> this.mediator.clear());
-        
+
         this.runButton.setBackground(Color.WHITE);
         this.runButton.addActionListener(e -> this.mediator.toggleAutoStep());
-        
+
         this.reloadButton.setBackground(Color.WHITE);
         this.reloadButton.addActionListener(e -> this.mediator.reload());
-        
+
         panel.add(this.stepButton);
         panel.add(this.clearButton);
         panel.add(this.runButton);
         panel.add(this.reloadButton);
-        
+
         JSlider slider = new JSlider(5, 1000);
-        
+
         slider.addChangeListener(e -> this.mediator.setPeriod(slider.getValue()));
 
         panel.add(slider);
-        
+
         return panel;
     }
-    
+
     public void update()
     {
+        this.runButton.setEnabled(this.mediator.getCurrentState().getRunPauseActive());
+        this.stepButton.setEnabled(this.mediator.getCurrentState().getStepActive());
+        this.clearButton.setEnabled(this.mediator.getCurrentState().getClearActive());
+        this.reloadButton.setEnabled(this.mediator.getCurrentState().getReloadActive());
     }
 }
