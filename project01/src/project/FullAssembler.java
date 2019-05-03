@@ -108,6 +108,8 @@ public class FullAssembler implements Assembler
                                 "\nError on line " + (i + 1) + ": mnemonic must be upper case");
 
                         ret = i + 1;
+
+                        opcode = opcode.toUpperCase(); // for future errors
                     }
 
                     // 5
