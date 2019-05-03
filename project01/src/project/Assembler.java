@@ -1,7 +1,5 @@
 package project;
 
-import java.util.Set;
-
 public interface Assembler
 {
     class DataPair
@@ -22,8 +20,6 @@ public interface Assembler
         }
     }
 
-    Set<String> noArgument = Set.of("HALT", "NOP", "NOT");
-
     /**
      * Method to assemble a file to its executable representation. If the input has
      * errors one or more of the errors will be reported the StringBulder. The
@@ -35,7 +31,7 @@ public interface Assembler
      * opened, the return value is -1. The unchecked exception
      * IllegalArgumentException is thrown if the error parameter is null, since it
      * would not be possible to provide error information about the source code.
-     * 
+     *
      * @param inputFileName  the source assembly language file name
      * @param outputFileName the file name of the executable version of the program
      *                       if the source program is correctly formatted

@@ -1,33 +1,30 @@
 package project;
 
-import static java.util.Map.entry;
-
 import java.util.Map;
 import java.util.Set;
 
 public class Instruction
 {
-    public static final Map<Integer, String> MNEMONICS = Map.ofEntries(
-            entry(0, "NOP"), entry(1, "NOT"), entry(2, "HALT"), entry(3, "JUMP"),
-            entry(4, "JMPZ"), entry(5, "LOD"), entry(6, "STO"), entry(7, "AND"),
-            entry(8, "CMPL"), entry(9, "CMPZ"), entry(10, "ADD"), entry(11, "SUB"),
-            entry(12, "MUL"), entry(13, "DIV")
+    public static final Map<Integer, String> MNEMONICS = Map.ofEntries(Map.entry(0, "NOP"),
+            Map.entry(1, "NOT"), Map.entry(2, "HALT"), Map.entry(3, "JUMP"), Map.entry(4, "JMPZ"),
+            Map.entry(5, "LOD"), Map.entry(6, "STO"), Map.entry(7, "AND"), Map.entry(8, "CMPL"),
+            Map.entry(9, "CMPZ"), Map.entry(10, "ADD"), Map.entry(11, "SUB"), Map.entry(12, "MUL"),
+            Map.entry(13, "DIV"));
+
+    public static final Map<String, Integer> OPCODES = Map.ofEntries(Map.entry("NOP", 0),
+            Map.entry("NOT", 1), Map.entry("HALT", 2), Map.entry("JUMP", 3), Map.entry("JMPZ", 4),
+            Map.entry("LOD", 5), Map.entry("STO", 6), Map.entry("AND", 7), Map.entry("CMPL", 8),
+            Map.entry("CMPZ", 9), Map.entry("ADD", 10), Map.entry("SUB", 11), Map.entry("MUL", 12),
+            Map.entry("DIV", 13)
+
     );
 
-    public static final Map<String, Integer> OPCODES = Map.ofEntries (
-            entry("NOP", 0), entry("NOT", 1), entry("HALT", 2), entry("JUMP", 3),
-            entry("JMPZ", 4), entry("LOD", 5), entry("STO", 6), entry("AND", 7),
-            entry("CMPL", 8), entry("CMPZ", 9), entry("ADD", 10), entry("SUB", 11),
-            entry("MUL", 12), entry("DIV", 13)
-
-    );
-
-    public static final Set<String> JMP_MNEMONICS = Set.of("JUMP", "JMPZ");
     public static final Set<String> NO_ARG_MNEMONICS = Set.of("NOP", "NOT", "HALT");
-    public static final Set<String> IND_MNEMONICS = Set.of("STO", "CMPL", "CMPZ");
-    public static final Set<String> IMM_IND_MNEMONICS = Set.of(
-            "LOD", "ADD", "SUB", "MUL", "DIV", "AND"
-    );
+    public static final Set<String> IMM_MNEMONICS = Set.of("LOD", "ADD", "SUB", "MUL", "DIV", "AND",
+            "JUMP", "JMPZ");
+    public static final Set<String> IND_MNEMONICS = Set.of("LOD", "ADD", "SUB", "MUL", "DIV",
+            "JUMP", "JMPZ", "STO");
+    public static final Set<String> JMP_MNEMONICS = Set.of("JUMP", "JMPZ");
 
     byte opcode;
     int arg;
@@ -62,19 +59,19 @@ public class Instruction
     {
         StringBuilder build = new StringBuilder();
 
-        build.append(MNEMONICS.get(opcode / 8));
+        build.append(Instruction.MNEMONICS.get(this.opcode / 8));
         build.append("  ");
 
-        byte flags = (byte)((opcode & 0b110) >> 1);
+        byte flags = (byte)((this.opcode & 0b110) >> 1);
 
         if (flags == 0b01)
             build.append('M');
         else if (flags == 0b10)
             build.append('N');
         else if (flags == 0b11)
-            build.append('A');
+            build.append('J');
 
-        build.append(Integer.toString(arg, 16));
+        build.append(Integer.toString(this.arg, 16));
 
         return build.toString().toUpperCase();
     }
@@ -83,10 +80,10 @@ public class Instruction
     {
         StringBuilder build = new StringBuilder();
 
-        String s = "00000000" + Integer.toString(opcode, 2);
+        String s = "00000000" + Integer.toString(this.opcode, 2);
         build.append(s.substring(s.length() - 8));
         build.append("  ");
-        build.append(Integer.toHexString(arg));
+        build.append(Integer.toHexString(this.arg));
 
         return build.toString().toUpperCase();
     }

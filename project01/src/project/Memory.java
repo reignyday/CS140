@@ -9,15 +9,15 @@ public class Memory
     public static final int DATA_SIZE = 512;
     public static final int CODE_SIZE = 256;
 
-    private int[] data = new int[DATA_SIZE];
+    private int[] data = new int[Memory.DATA_SIZE];
     private List<Instruction> code = new ArrayList<>();
     private int changedDataIndex = -1;
 
     int[] getData(int start, int end)
     {
-        if (start < 0 || end >= DATA_SIZE)
-            throw new DataAccessException(
-                    String.format("Memory index OOB: %d-%d, [0, %d)", start, end, DATA_SIZE));
+        if (start < 0 || end >= Memory.DATA_SIZE)
+            throw new DataAccessException(String.format("Memory index OOB: %d-%d, [0, %d)", start,
+                    end, Memory.DATA_SIZE));
 
         if (start > end)
             throw new IllegalArgumentException(
@@ -33,18 +33,18 @@ public class Memory
 
     int getData(int index)
     {
-        if (index < 0 || index >= DATA_SIZE)
+        if (index < 0 || index >= Memory.DATA_SIZE)
             throw new DataAccessException(
-                    String.format("Memory index OOB: %d, [0, %d)", index, DATA_SIZE));
+                    String.format("Memory index OOB: %d, [0, %d)", index, Memory.DATA_SIZE));
 
         return this.data[index];
     }
 
     void setData(int index, int value)
     {
-        if (index < 0 || index >= DATA_SIZE)
+        if (index < 0 || index >= Memory.DATA_SIZE)
             throw new DataAccessException(
-                    String.format("Memory index OOB: %d, [0, %d)", index, DATA_SIZE));
+                    String.format("Memory index OOB: %d, [0, %d)", index, Memory.DATA_SIZE));
 
         this.data[index] = value;
 
@@ -53,7 +53,7 @@ public class Memory
 
     void clearData()
     {
-        this.data = new int[DATA_SIZE];
+        this.data = new int[Memory.DATA_SIZE];
 
         this.changedDataIndex = -1;
     }
@@ -65,7 +65,7 @@ public class Memory
 
     Instruction getCode(int index)
     {
-        if (index < 0 || index >= CODE_SIZE)
+        if (index < 0 || index >= Memory.CODE_SIZE)
             throw new CodeAccessException("illegal access to code");
 
         return this.code.get(index);
@@ -73,7 +73,7 @@ public class Memory
 
     Instruction[] getCode(int start, int end)
     {
-        if (start < 0 || end >= CODE_SIZE || start > end)
+        if (start < 0 || end >= Memory.CODE_SIZE || start > end)
             throw new CodeAccessException("illegal access to code");
 
         Instruction[] temp = {};
@@ -85,7 +85,7 @@ public class Memory
 
     void addCode(Instruction value)
     {
-        if (code.size() >= CODE_SIZE)
+        if (this.code.size() >= Memory.CODE_SIZE)
             return;
 
         this.code.add(value);
@@ -93,7 +93,7 @@ public class Memory
 
     void setCode(int index, Instruction instr)
     {
-        if (index < 0 || index >= CODE_SIZE)
+        if (index < 0 || index >= Memory.CODE_SIZE)
             throw new CodeAccessException("illegal access to code");
 
         this.code.set(index, instr);

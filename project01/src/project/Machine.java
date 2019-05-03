@@ -1,7 +1,5 @@
 package project;
 
-import static project.Instruction.OPCODES;
-
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -20,23 +18,23 @@ public class Machine
     private CPU cpu = new CPU();
     private Memory memory = new Memory();
 
-    private boolean withGUI = false;
     private HaltCallback callBack;
 
     public Machine(HaltCallback cb)
     {
         this.callBack = cb;
 
-        ACTION.put(OPCODES.get("NOP"), instr -> {
+        this.ACTION.put(Instruction.OPCODES.get("NOP"), instr ->
+        {
             // right shift removes parity bit, bitwise-and takes the last two bits (flags)
             // 0b01111100 >> 1 = 0b0111110, 0b0111110 & 0b11 = 0b10
-            byte flags = (byte)((instr.opcode >> 1) & 0b11);
+            byte flags = (byte)(instr.opcode >> 1 & 0b11);
             // flags is now 0b000000??
 
             if (flags != 0)
             {
-                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1) +
-                    Integer.toBinaryString(flags & 0b01) + ")";
+                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1)
+                        + Integer.toBinaryString(flags & 0b01) + ")";
 
                 throw new IllegalInstructionException(
                         "Illegal flags for this instruction: " + fstr);
@@ -45,13 +43,14 @@ public class Machine
             this.cpu.pc++;
         });
 
-        ACTION.put(OPCODES.get("HALT"), instr -> {
-            byte flags = (byte)((instr.opcode >> 1) & 0b11);
+        this.ACTION.put(Instruction.OPCODES.get("HALT"), instr ->
+        {
+            byte flags = (byte)(instr.opcode >> 1 & 0b11);
 
             if (flags != 0)
             {
-                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1) +
-                    Integer.toBinaryString(flags & 0b01) + ")";
+                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1)
+                        + Integer.toBinaryString(flags & 0b01) + ")";
 
                 throw new IllegalInstructionException(
                         "Illegal flags for this instruction: " + fstr);
@@ -62,8 +61,9 @@ public class Machine
             this.halt();
         });
 
-        ACTION.put(OPCODES.get("JUMP"), instr -> {
-            byte flags = (byte)((instr.opcode >> 1) & 0b11);
+        this.ACTION.put(Instruction.OPCODES.get("JUMP"), instr ->
+        {
+            byte flags = (byte)(instr.opcode >> 1 & 0b11);
 
             if (flags == 0)
                 this.cpu.pc += instr.arg;
@@ -75,8 +75,9 @@ public class Machine
                 this.cpu.pc = this.getData(instr.arg);
         });
 
-        ACTION.put(OPCODES.get("JMPZ"), instr -> {
-            byte flags = (byte)((instr.opcode >> 1) & 0b11);
+        this.ACTION.put(Instruction.OPCODES.get("JMPZ"), instr ->
+        {
+            byte flags = (byte)(instr.opcode >> 1 & 0b11);
 
             if (this.cpu.accum == 0)
             {
@@ -93,8 +94,9 @@ public class Machine
                 this.cpu.pc++;
         });
 
-        ACTION.put(OPCODES.get("LOD"), instr -> {
-            byte flags = (byte)((instr.opcode >> 1) & 0b11);
+        this.ACTION.put(Instruction.OPCODES.get("LOD"), instr ->
+        {
+            byte flags = (byte)(instr.opcode >> 1 & 0b11);
 
             if (flags == 0)
                 this.cpu.accum = this.getData(instr.arg);
@@ -104,8 +106,8 @@ public class Machine
                 this.cpu.accum = this.getData(this.getData(instr.arg));
             else
             {
-                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1) +
-                    Integer.toBinaryString(flags & 0b01) + ")";
+                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1)
+                        + Integer.toBinaryString(flags & 0b01) + ")";
 
                 throw new IllegalInstructionException(
                         "Illegal flags for this instruction: " + fstr);
@@ -114,8 +116,9 @@ public class Machine
             this.cpu.pc++;
         });
 
-        ACTION.put(OPCODES.get("STO"), instr -> {
-            byte flags = (byte)((instr.opcode >> 1) & 0b11);
+        this.ACTION.put(Instruction.OPCODES.get("STO"), instr ->
+        {
+            byte flags = (byte)(instr.opcode >> 1 & 0b11);
 
             if (flags == 0)
                 this.setData(instr.arg, this.cpu.accum);
@@ -123,8 +126,8 @@ public class Machine
                 this.setData(this.getData(instr.arg), this.cpu.accum);
             else
             {
-                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1) +
-                    Integer.toBinaryString(flags & 0b01) + ")";
+                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1)
+                        + Integer.toBinaryString(flags & 0b01) + ")";
 
                 throw new IllegalInstructionException(
                         "Illegal flags for this instruction: " + fstr);
@@ -133,13 +136,14 @@ public class Machine
             this.cpu.pc++;
         });
 
-        ACTION.put(OPCODES.get("NOT"), instr -> {
-            byte flags = (byte)((instr.opcode >> 1) & 0b11);
+        this.ACTION.put(Instruction.OPCODES.get("NOT"), instr ->
+        {
+            byte flags = (byte)(instr.opcode >> 1 & 0b11);
 
             if (flags != 0)
             {
-                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1) +
-                    Integer.toBinaryString(flags & 0b01) + ")";
+                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1)
+                        + Integer.toBinaryString(flags & 0b01) + ")";
 
                 throw new IllegalInstructionException(
                         "Illegal flags for this instruction: " + fstr);
@@ -150,17 +154,18 @@ public class Machine
             this.cpu.pc++;
         });
 
-        ACTION.put(OPCODES.get("AND"), instr -> {
-            byte flags = (byte)((instr.opcode >> 1) & 0b11);
+        this.ACTION.put(Instruction.OPCODES.get("AND"), instr ->
+        {
+            byte flags = (byte)(instr.opcode >> 1 & 0b11);
 
             if (flags == 0)
-                this.cpu.accum = (this.cpu.accum != 0 && this.getData(instr.arg) != 0) ? 1 : 0;
+                this.cpu.accum = this.cpu.accum != 0 && this.getData(instr.arg) != 0 ? 1 : 0;
             else if (flags == 0b01)
-                this.cpu.accum = (this.cpu.accum != 0 && instr.arg != 0) ? 1 : 0;
+                this.cpu.accum = this.cpu.accum != 0 && instr.arg != 0 ? 1 : 0;
             else
             {
-                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1) +
-                    Integer.toBinaryString(flags & 0b01) + ")";
+                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1)
+                        + Integer.toBinaryString(flags & 0b01) + ")";
 
                 throw new IllegalInstructionException(
                         "Illegal flags for this instruction: " + fstr);
@@ -169,13 +174,14 @@ public class Machine
             this.cpu.pc++;
         });
 
-        ACTION.put(OPCODES.get("CMPL"), instr -> {
-            byte flags = (byte)((instr.opcode >> 1) & 0b11);
+        this.ACTION.put(Instruction.OPCODES.get("CMPL"), instr ->
+        {
+            byte flags = (byte)(instr.opcode >> 1 & 0b11);
 
             if (flags != 0)
             {
-                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1) +
-                    Integer.toBinaryString(flags & 0b01) + ")";
+                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1)
+                        + Integer.toBinaryString(flags & 0b01) + ")";
 
                 throw new IllegalInstructionException(
                         "Illegal flags for this instruction: " + fstr);
@@ -186,13 +192,14 @@ public class Machine
             this.cpu.pc++;
         });
 
-        ACTION.put(OPCODES.get("CMPZ"), instr -> {
-            byte flags = (byte)((instr.opcode >> 1) & 0b11);
+        this.ACTION.put(Instruction.OPCODES.get("CMPZ"), instr ->
+        {
+            byte flags = (byte)(instr.opcode >> 1 & 0b11);
 
             if (flags != 0)
             {
-                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1) +
-                    Integer.toBinaryString(flags & 0b01) + ")";
+                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1)
+                        + Integer.toBinaryString(flags & 0b01) + ")";
 
                 throw new IllegalInstructionException(
                         "Illegal flags for this instruction: " + fstr);
@@ -203,19 +210,20 @@ public class Machine
             this.cpu.pc++;
         });
 
-        ACTION.put(OPCODES.get("ADD"), instr -> {
-            byte flags = (byte)((instr.opcode >> 1) & 0b11);
+        this.ACTION.put(Instruction.OPCODES.get("ADD"), instr ->
+        {
+            byte flags = (byte)(instr.opcode >> 1 & 0b11);
 
             if (flags == 0)
-                cpu.accum += this.getData(instr.arg);
+                this.cpu.accum += this.getData(instr.arg);
             else if (flags == 0b01)
                 this.cpu.accum += instr.arg;
             else if (flags == 0b10)
                 this.cpu.accum += this.getData(this.getData(instr.arg));
             else
             {
-                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1) +
-                    Integer.toBinaryString(flags & 0b01) + ")";
+                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1)
+                        + Integer.toBinaryString(flags & 0b01) + ")";
 
                 throw new IllegalInstructionException(
                         "Illegal flags for this instruction: " + fstr);
@@ -224,8 +232,9 @@ public class Machine
             this.cpu.pc++;
         });
 
-        ACTION.put(OPCODES.get("SUB"), instr -> {
-            byte flags = (byte)((instr.opcode >> 1) & 0b11);
+        this.ACTION.put(Instruction.OPCODES.get("SUB"), instr ->
+        {
+            byte flags = (byte)(instr.opcode >> 1 & 0b11);
 
             if (flags == 0)
                 this.cpu.accum -= this.getData(instr.arg);
@@ -235,8 +244,8 @@ public class Machine
                 this.cpu.accum -= this.getData(this.getData(instr.arg));
             else
             {
-                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1) +
-                    Integer.toBinaryString(flags & 0b01) + ")";
+                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1)
+                        + Integer.toBinaryString(flags & 0b01) + ")";
 
                 throw new IllegalInstructionException(
                         "Illegal flags for this instruction: " + fstr);
@@ -245,8 +254,9 @@ public class Machine
             this.cpu.pc++;
         });
 
-        ACTION.put(OPCODES.get("MUL"), instr -> {
-            byte flags = (byte)((instr.opcode >> 1) & 0b11);
+        this.ACTION.put(Instruction.OPCODES.get("MUL"), instr ->
+        {
+            byte flags = (byte)(instr.opcode >> 1 & 0b11);
 
             if (flags == 0)
                 this.cpu.accum *= this.getData(instr.arg);
@@ -256,8 +266,8 @@ public class Machine
                 this.cpu.accum *= this.getData(this.getData(instr.arg));
             else
             {
-                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1) +
-                    Integer.toBinaryString(flags & 0b01) + ")";
+                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1)
+                        + Integer.toBinaryString(flags & 0b01) + ")";
 
                 throw new IllegalInstructionException(
                         "Illegal flags for this instruction: " + fstr);
@@ -266,8 +276,9 @@ public class Machine
             this.cpu.pc++;
         });
 
-        ACTION.put(OPCODES.get("DIV"), instr -> {
-            byte flags = (byte)((instr.opcode >> 1) & 0b11);
+        this.ACTION.put(Instruction.OPCODES.get("DIV"), instr ->
+        {
+            byte flags = (byte)(instr.opcode >> 1 & 0b11);
 
             int divisor;
 
@@ -279,8 +290,8 @@ public class Machine
                 divisor = this.getData(this.getData(instr.arg));
             else
             {
-                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1) +
-                    Integer.toBinaryString(flags & 0b01) + ")";
+                var fstr = "(" + Integer.toBinaryString((flags & 0b10) >> 1)
+                        + Integer.toBinaryString(flags & 0b01) + ")";
 
                 throw new IllegalInstructionException(
                         "Illegal flags for this instruction: " + fstr);
@@ -317,7 +328,7 @@ public class Machine
 
     public Instruction getCode(int index)
     {
-        return memory.getCode(index);
+        return this.memory.getCode(index);
     }
 
     public int getProgramSize()
@@ -371,12 +382,12 @@ public class Machine
 
             Instruction.checkParity(instr);
 
-            ACTION.get(instr.opcode / 8).accept(instr);
+            this.ACTION.get(instr.opcode / 8).accept(instr);
         }
         catch (Exception e)
         {
             // e.printStackTrace();
-            
+
             this.halt();
 
             throw e;

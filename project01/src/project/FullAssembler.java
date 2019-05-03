@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class FullAssembler implements Assembler
 {
@@ -25,25 +26,17 @@ public class FullAssembler implements Assembler
 
             int blank = -1;
 
+            final Pattern blankLine = Pattern.compile("^\\s*$");
+            final Pattern startsBlank = Pattern.compile("^\\s+\\S");
+
             for (int i = 0; i < lines.size(); ++i)
             {
                 String line = lines.get(i);
 
-                // 2
-                if (line.startsWith(" ") || line.startsWith("\t"))
-                {
-                    error.append("\nError on line " + (i + 1)
-                            + ": Line starts with illegal white space");
-
-                    ret = i + 1;
-                }
-
-                line = line.trim();
-
                 // 1
-                if (blank == -1 && line.length() == 0)
+                if (blank == -1 && blankLine.matcher(line).find())
                     blank = i;
-                else if (blank != -1 && line.length() != 0)
+                else if (blank != -1 && !blankLine.matcher(line).find())
                 {
                     error.append(
                             "\nError on line " + (blank + 1) + ": Blank line in the source file");
@@ -52,6 +45,19 @@ public class FullAssembler implements Assembler
 
                     blank = -1;
                 }
+
+                // 2
+                if (startsBlank.matcher(line).find())
+                {
+                    error.append("\nError on line " + (i + 1)
+                            + ": Line starts with illegal white space");
+
+                    ret = i + 1;
+
+                    continue;
+                }
+
+                line = line.trim();
 
                 if (line.length() == 0)
                     continue;
@@ -103,7 +109,7 @@ public class FullAssembler implements Assembler
                     }
 
                     // 5
-                    if (Assembler.noArgument.contains(opcode.toUpperCase()))
+                    if (Instruction.NO_ARG_MNEMONICS.contains(opcode.toUpperCase()))
                     {
                         if (parts.length != 1)
                         {
@@ -119,7 +125,46 @@ public class FullAssembler implements Assembler
                         {
                             String arg = parts[1];
 
-                            if (arg.startsWith("M") || arg.startsWith("N") || arg.startsWith("A"))
+                            boolean prepended = false;
+
+                            if (arg.startsWith("M"))
+                            {
+                                prepended = true;
+
+                                if (!Instruction.IMM_MNEMONICS.contains(parts[0]))
+                                {
+                                    error.append("\nError on line " + (i + 1)
+                                            + ": this mnemonic does not allow immediate mode");
+
+                                    ret = i + 1;
+                                }
+                            }
+                            else if (arg.startsWith("N"))
+                            {
+                                prepended = true;
+
+                                if (!Instruction.IND_MNEMONICS.contains(parts[0]))
+                                {
+                                    error.append("\nError on line " + (i + 1)
+                                            + ": this mnemonic does not allow indirect mode");
+
+                                    ret = i + 1;
+                                }
+                            }
+                            else if (arg.startsWith("J"))
+                            {
+                                prepended = true;
+
+                                if (!Instruction.JMP_MNEMONICS.contains(parts[0]))
+                                {
+                                    error.append("\nError on line " + (i + 1)
+                                            + ": this mnemonic does not allow special jump mode");
+
+                                    ret = i + 1;
+                                }
+                            }
+
+                            if (prepended)
                                 arg = arg.substring(1);
 
                             Integer.parseInt(arg, 16);

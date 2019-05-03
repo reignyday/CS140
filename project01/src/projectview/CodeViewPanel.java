@@ -86,7 +86,6 @@ public class CodeViewPanel
 
     public void update(String arg)
     {
-        System.out.println(arg);
         if ("Load Code".equals(arg))
         {
             for (int i = 0; i < this.machine.getProgramSize(); i++)
@@ -104,7 +103,7 @@ public class CodeViewPanel
         }
         else if ("Clear".equals(arg))
         {
-            for (int i = 0; i < this.machine.getProgramSize(); i++)
+            for (int i = 0; i < this.codeText.length; i++)
             {
                 this.codeText[i].setText("");
                 this.codeBinHex[i].setText("");

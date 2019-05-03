@@ -20,7 +20,7 @@ public class SimpleAssembler implements Assembler
     {
         Instruction instr = null;
 
-        if (Assembler.noArgument.contains(parts[0]))
+        if (Instruction.NO_ARG_MNEMONICS.contains(parts[0]))
         {
             byte opPart = (byte)(Instruction.OPCODES.get(parts[0]) << 3);
 
@@ -36,7 +36,7 @@ public class SimpleAssembler implements Assembler
                 flags = 0b01;
             else if (parts[1].charAt(0) == 'N')
                 flags = 0b10;
-            else if (parts[1].charAt(0) == 'A')
+            else if (parts[1].charAt(0) == 'J')
                 flags = 0b11;
 
             if (flags != 0)
