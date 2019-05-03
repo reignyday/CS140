@@ -72,8 +72,8 @@ public class SimpleAssembler implements Assembler
                     this.readingCode = false;
             }).collect(Collectors.partitioningBy(line -> this.readingCode));
 
-            System.out.println("true list " + lists.get(true));
-            System.out.println("false list " + lists.get(false));
+            //System.out.println("true list " + lists.get(true));
+            //System.out.println("false list " + lists.get(false));
         }
         catch (IOException e)
         {

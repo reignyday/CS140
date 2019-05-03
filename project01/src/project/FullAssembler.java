@@ -20,6 +20,8 @@ public class FullAssembler implements Assembler
 
         int ret = 0;
 
+        this.readingCode = true;
+
         try
         {
             List<String> lines = Files.readAllLines(Paths.get(inputFileName));
