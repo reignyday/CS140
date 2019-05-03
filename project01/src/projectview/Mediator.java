@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import project.CodeAccessException;
+import project.DataAccessException;
 import project.DivideByZeroException;
 import project.IllegalInstructionException;
 import project.Machine;
@@ -136,6 +137,16 @@ public class Mediator
                 System.out.println("Illegal access to code from line " + this.machine.getPC());
                 System.out.println("Exception message: " + e.getMessage());
             }
+            catch (DataAccessException e)
+            {
+                JOptionPane.showMessageDialog(this.frame,
+                        "Illegal access to data from line " + this.machine.getPC() + "\n"
+                                + "Exception message: " + e.getMessage(),
+                        "Run time error", JOptionPane.OK_OPTION);
+
+                System.out.println("Illegal access to data from line " + this.machine.getPC());
+                System.out.println("Exception message: " + e.getMessage());
+            }
             catch (ArrayIndexOutOfBoundsException e)
             {
                 JOptionPane.showMessageDialog(this.frame,
@@ -219,6 +230,16 @@ public class Mediator
                         "Run time error", JOptionPane.OK_OPTION);
 
                 System.out.println("Illegal access to code from line " + this.machine.getPC());
+                System.out.println("Exception message: " + e.getMessage());
+            }
+            catch (DataAccessException e)
+            {
+                JOptionPane.showMessageDialog(this.frame,
+                        "Illegal access to data from line " + this.machine.getPC() + "\n"
+                                + "Exception message: " + e.getMessage(),
+                        "Run time error", JOptionPane.OK_OPTION);
+
+                System.out.println("Illegal access to data from line " + this.machine.getPC());
                 System.out.println("Exception message: " + e.getMessage());
             }
             catch (ArrayIndexOutOfBoundsException e)

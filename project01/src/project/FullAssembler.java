@@ -188,22 +188,18 @@ public class FullAssembler implements Assembler
                         ret = i + 1;
                     }
                 }
+                else if (parts.length != 2)
+                {
+                    error.append("\nError on line " + (i + 1)
+                            + ": DATA lines must be in the format [addr val]");
+
+                    ret = i + 1;
+                }
                 else
-                    // 7
+                {
                     try
                     {
-                        if (parts.length != 2)
-                        {
-                            error.append("\nError on line " + (i + 1)
-                                    + ": DATA lines must be in the format [addr val]");
-
-                            ret = i + 1;
-                        }
-                        else
-                        {
-                            Integer.parseInt(parts[0], 16);
-                            Integer.parseInt(parts[1], 16);
-                        }
+                        Integer.parseInt(parts[0], 16);
                     }
                     catch (NumberFormatException e)
                     {
@@ -212,6 +208,19 @@ public class FullAssembler implements Assembler
 
                         ret = i + 1;
                     }
+
+                    try
+                    {
+                        Integer.parseInt(parts[1], 16);
+                    }
+                    catch (NumberFormatException e)
+                    {
+                        error.append("\nError on line " + (i + 1)
+                                + ": data has non-numeric memory value");
+
+                        ret = i + 1;
+                    }
+                }
             }
         }
         catch (FileNotFoundException e)
